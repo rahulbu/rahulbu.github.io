@@ -1,95 +1,191 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Rahul B U - Resume</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rahul B U — Senior Software Engineer | Backend, Search & GenAI</title>
+  <meta name="description" content="Rahul B U — Senior Software Engineer at Tellius. 6+ years across large-scale backend and search, now building production Generative AI: multi-agent systems, Text-to-SQL, agentic apps and real-time voice AI.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="style.css">
+  <script>(function(){try{var t=localStorage.getItem('theme');if(!t){t=matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}if(t==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}document.documentElement.classList.add('js');})();</script>
 </head>
 <body>
-	<header>
-		<h1>Rahul B U</h1>
-		<nav>
-			<a href="#education">Education</a>
-			<a href="#skills">Skills</a>
-			<a href="#experience">Experience</a>
-			<a href="#achievements">Achievements</a>
-			<a href="#references">References</a>
-			<a href="learnings.html">Learnings</a>
-		</nav>
-	</header>
-	<main>
-		<section id="objective">
-			<h2>Objective</h2>
-			<p>[Your career goal or objective]</p>
-		</section>
-		<section id="education">
-			<h2>Education</h2>
-			<ul>
-				<li>Bachelor of Engineering, Computer Science And Engineering from RNSIT, 2020</li>
-				<!-- <li>[Degree, Major] from [Name of University], [Graduation Date]</li> -->
-				<!-- <li>[High School Diploma] from [Name of High School], [Graduation Date]</li> -->
-			</ul>
-		</section>
-		<section id="skills">
-			<h2>Skills</h2>
-			<ul>
-				<li>ElaticSearch<a href="https://www.elastic.co/elasticsearch/"><i class="fa fa-info-circle"></i></a></li>
-				<li>Java, Spring Boot<a href="https://spring.io/"><i class="fa fa-info-circle"></i></a></li>
-				<li>Retool<a href="https://retool.com/"><i class="fa fa-info-circle"></i></a></li>
-				<li>PHP, Scala<a href="https://www.scala-lang.org/"><i class="fa fa-info-circle"></i></a>, Python</li> 
-			</ul>
-		</section>
-		<section id="experience">
-			<h2>Experience</h2>
-			<ul>
-				<li>
-					<h3>Software Engineer 2 at Practo Technologies Pvt Ltd</h3>
-					<p>Jul. 2021 - Present</p>
-					<!-- <ul>
-						<li>[Job Duty/Responsibility]</li>
-						<li>[Job Duty/Responsibility]</li>
-					</ul> -->
-				</li>
-				<li>
-					<h3>Software Engineer 1 at Practo Technologies Pvt Ltd</h3>
-					<p>Jul 2020 - Jun 2021</p>
-					<!-- <ul>
-						<li>[Job Duty/Responsibility]</li>
-						<li>[Job Duty/Responsibility]</li>
-					</ul> -->
-				</li>
-				<li>
-					<h3>Software Engineer Intern at Practo Technologies Pvt Ltd</h3>
-					<p>Jan 2020 - Jun 2020</p>
-					<!-- <ul>
-						<li>[Job Duty/Responsibility]</li>
-						<li>[Job Duty/Responsibility]</li>
-					</ul> -->
-				</li>
-			</ul>
-		</section>
-		<section id="achievements">
-			<h2>Achievements</h2>
-			<ul>
-				<div style="width: 100%;">
-				  <img src="oct_2021.jpg" style="float: left; width: 33%;"> 
-				  <img src="sep_2022.jpg" style="float: left; width: 33%;"> 
-				  <img src="dec_2022.jpg" style="float: left; width: 33%;"> 
-				</div>
-			</ul>
-		</section>
-		<section id="references">
-			<h2>References</h2>
-			<ul>
-				<li>[Name, Title, Company, Phone Number, Email Address]</li>
-				<li>[Name, Title, Company, Phone Number, Email Address]</li>
-				<li>[Name, Title, Company, Phone Number, Email Address]</li>
-			</ul>
-		</section>
-	</main>
-	<footer>
-		<p>&copy; Rahul B U 2023</p>
-	</footer>
+
+  <!-- NAV -->
+  <div class="nav">
+    <div class="wrap">
+      <a class="brand" href="#top">Rahul B U</a>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#journey">Journey</a>
+        <a href="#skills">Skills</a>
+        <a href="work.html">Work</a>
+        <a href="learnings.html">Notes</a>
+        <a class="btn primary" href="resume.pdf" target="_blank" rel="noopener">Résumé</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle light / dark">
+          <svg class="sun" viewBox="0 0 24 24"><path d="M12 17a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-13a1 1 0 0 1 1 1v1a1 1 0 0 1-2 0V5a1 1 0 0 1 1-1zm0 14a1 1 0 0 1 1 1v1a1 1 0 0 1-2 0v-1a1 1 0 0 1 1-1zM4 12a1 1 0 0 1 1-1h1a1 1 0 0 1 0 2H5a1 1 0 0 1-1-1zm14 0a1 1 0 0 1 1-1h1a1 1 0 0 1 0 2h-1a1 1 0 0 1-1-1zM5.6 5.6a1 1 0 0 1 1.4 0l.7.7a1 1 0 0 1-1.4 1.4l-.7-.7a1 1 0 0 1 0-1.4zm10.7 10.7a1 1 0 0 1 1.4 0l.7.7a1 1 0 0 1-1.4 1.4l-.7-.7a1 1 0 0 1 0-1.4zM18.4 5.6a1 1 0 0 1 0 1.4l-.7.7a1 1 0 0 1-1.4-1.4l.7-.7a1 1 0 0 1 1.4 0zM7.7 16.3a1 1 0 0 1 0 1.4l-.7.7a1 1 0 1 1-1.4-1.4l.7-.7a1 1 0 0 1 1.4 0z"/></svg>
+          <svg class="moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        </button>
+      </nav>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero" id="top">
+    <div class="blob b1"></div><div class="blob b2"></div>
+    <svg class="grid" viewBox="0 0 1200 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <g stroke="#3b82f6" stroke-width="1" opacity="0.5">
+        <line class="flowline" x1="120" y1="120" x2="360" y2="200"/>
+        <line class="flowline" x1="360" y1="200" x2="300" y2="380"/>
+        <line class="flowline" x1="360" y1="200" x2="600" y2="150"/>
+        <line class="flowline" x1="600" y1="150" x2="820" y2="260"/>
+        <line class="flowline" x1="600" y1="150" x2="560" y2="360"/>
+        <line class="flowline" x1="820" y1="260" x2="1040" y2="160"/>
+        <line class="flowline" x1="820" y1="260" x2="900" y2="420"/>
+        <line class="flowline" x1="1040" y1="160" x2="1120" y2="330"/>
+      </g>
+      <g fill="#5b9dff">
+        <circle class="pnode" cx="120" cy="120" r="5"/><circle class="pnode" cx="360" cy="200" r="7" style="animation-delay:.4s"/>
+        <circle class="pnode" cx="300" cy="380" r="5" style="animation-delay:.8s"/><circle class="pnode" cx="600" cy="150" r="6" style="animation-delay:1.2s"/>
+        <circle class="pnode" cx="820" cy="260" r="6" style="animation-delay:.6s"/><circle class="pnode" cx="560" cy="360" r="5" style="animation-delay:1.6s"/>
+        <circle class="pnode" cx="1040" cy="160" r="6" style="animation-delay:1s"/><circle class="pnode" cx="900" cy="420" r="5" style="animation-delay:.2s"/>
+        <circle class="pnode" cx="1120" cy="330" r="5" style="animation-delay:1.4s"/>
+      </g>
+    </svg>
+    <div class="wrap">
+     <div class="hero-grid">
+      <div class="hero-text">
+      <div class="eyebrow">Senior Software Engineer @ Tellius</div>
+      <h1>Building <span class="accent">Gen AI</span> that ships.</h1>
+      <p class="tagline">Currently working on <span class="rotate" id="rotate"></span></p>
+      <p class="intro">I build multi-agent Generative-AI systems on top of 6+ years of large-scale backend and search engineering — turning natural language into SQL, insights, and interactive applications, grounded in the unglamorous engineering that makes AI actually work in production.</p>
+      <div class="cta">
+        <a class="btn primary" href="work.html"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 9h16" stroke="currentColor" stroke-width="2"/></svg>Explore my work</a>
+        <a class="btn" href="resume.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 16l-5-5h3V4h4v7h3l-5 5zM5 18h14v2H5z"/></svg>Résumé</a>
+        <a class="btn" href="https://www.linkedin.com/in/rahulbu/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1-.02-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.3-.02-2.96-1.8-2.96-1.8 0-2.08 1.4-2.08 2.86V21H9z"/></svg>LinkedIn</a>
+        <a class="btn" href="https://github.com/rahulbu" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49v-1.7c-2.78.62-3.37-1.22-3.37-1.22-.46-1.18-1.11-1.5-1.11-1.5-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.9 1.57 2.34 1.12 2.91.86.09-.66.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9v2.82c0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2z"/></svg>GitHub</a>
+      </div>
+      </div><!-- .hero-text -->
+      <div class="hero-photo"><img src="me.jpg" alt="Rahul B U — Senior Software Engineer"></div>
+     </div><!-- .hero-grid -->
+    </div>
+  </header>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap reveal">
+      <h2><span class="n">01</span>About</h2>
+      <p class="section-lead">The model is the easy part.</p>
+      <p>I spent nearly five years building backend and search systems at Practo — from the search-indexer and ML learning-to-rank ranking, to India's ABDM national health-data integration, to the backend for a new secondary-care surgeries vertical — then moved into Generative AI. Now at Tellius I build our GenAI analytics assistant: agentic, multi-agent systems that turn plain English into real analysis. What I keep relearning is that whether an AI feature ships has less to do with the model and more to do with the engineering around it — retrieval, query translation, latency, caching, and knowing when <em>not</em> to use an LLM. The search and distributed-systems instincts I built pre-AI turn out to be the real edge.</p>
+      <p style="color:var(--muted); margin-top:14px; font-size:.92rem;">B.E. Computer Science, Visvesvaraya Technological University (RNSIT) — 8.3 CGPA · Bengaluru, India</p>
+    </div>
+  </section>
+
+  <!-- JOURNEY -->
+  <section id="journey">
+    <div class="wrap">
+      <div class="reveal"><h2><span class="n">02</span>The Journey</h2>
+      <p class="section-lead">A deliberate arc: search → machine learning → generative AI.</p></div>
+      <div class="journey reveal d1">
+        <div class="jstage">
+          <div class="ic">🔎</div><div class="yr">2020 – 2022</div>
+          <h4>Search &amp; Backend</h4>
+          <p>Built and scaled the doctor-search platform — indexer, realtime sync, autocomplete, and ranking on Elasticsearch.</p>
+          <span class="jarrow">→</span>
+        </div>
+        <div class="jstage">
+          <div class="ic">📈</div><div class="yr">2023 – 2024</div>
+          <h4>Machine Learning</h4>
+          <p>Evolved ranking from heuristic weights to ML learning-to-rank; shipped the first patient-facing GenAI chat.</p>
+          <span class="jarrow">→</span>
+        </div>
+        <div class="jstage">
+          <div class="ic">🤖</div><div class="yr">2024 – now</div>
+          <h4>Generative AI</h4>
+          <p>Multi-agent systems at Tellius: Text-to-SQL, agentic app generation, real-time voice, and a multi-LLM core.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="wrap">
+      <div class="reveal"><h2><span class="n">03</span>Skills</h2><p class="section-lead">What I build with.</p></div>
+      <div class="reveal d1">
+        <div class="skillgroup"><h3>AI / GenAI</h3><div class="chips">
+          <span class="chip">LangGraph</span><span class="chip">LangChain</span><span class="chip">Multi-agent Systems</span><span class="chip">Text-to-SQL</span><span class="chip">RAG</span><span class="chip">LangSmith</span><span class="chip">Anthropic Claude</span><span class="chip">OpenAI</span><span class="chip">Gemini</span><span class="chip">AWS Bedrock</span>
+        </div></div>
+        <div class="skillgroup"><h3>Backend</h3><div class="chips">
+          <span class="chip">Java</span><span class="chip">Python</span><span class="chip">Scala</span><span class="chip">Spring Boot</span><span class="chip">Akka</span><span class="chip">PHP</span>
+        </div></div>
+        <div class="skillgroup"><h3>Search &amp; Data</h3><div class="chips">
+          <span class="chip">Elasticsearch</span><span class="chip">PostgreSQL</span><span class="chip">MySQL</span><span class="chip">DynamoDB</span><span class="chip">Redis</span><span class="chip">ClickHouse</span><span class="chip">Chroma / Qdrant</span>
+        </div></div>
+        <div class="skillgroup"><h3>Cloud &amp; Ops</h3><div class="chips">
+          <span class="chip">AWS</span><span class="chip">Docker</span><span class="chip">Kubernetes</span><span class="chip">New Relic</span><span class="chip">Retool</span>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SELECTED WORK -->
+  <section id="work">
+    <div class="wrap">
+      <div class="reveal"><h2><span class="n">04</span>Selected Work</h2><p class="section-lead">Systems I've built end-to-end — <a href="work.html">read the deep dives →</a></p></div>
+      <div class="cards">
+        <a class="card reveal d1" href="work.html#assistant"><div class="icon">🧠</div><h3>GenAI Analytics Assistant</h3><p>A multi-agent system (LangGraph) that turns natural language into SQL, insights, and interactive apps — orchestrator, multi-LLM core, RAG, and observability.</p><span class="more">Deep dive →</span></a>
+        <a class="card reveal d2" href="work.html#apps"><div class="icon">🧩</div><h3>Agentic App Generation</h3><p>Generates interactive, editable data apps (React/TSX) from a prompt — build → validate → fix loop, versioning, and diff-based edits to cut LLM cost.</p><span class="more">Deep dive →</span></a>
+        <a class="card reveal d1" href="work.html#search"><div class="icon">🔎</div><h3>ML Learning-to-Rank Search</h3><p>Evolved doctor-search ranking from heuristic weights to ML LTR — plus the indexer, realtime sync, and autocomplete behind it.</p><span class="more">Deep dive →</span></a>
+        <a class="card reveal d2" href="work.html#voice"><div class="icon">🎙️</div><h3>Real-time Voice AI</h3><p>Voice agents over WebRTC / WebSockets (Deepgram, ElevenLabs, OpenAI Realtime) with live tool and prompt sync.</p><span class="more">Deep dive →</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="wrap">
+      <div class="reveal"><h2><span class="n">05</span>Experience</h2><p class="section-lead">6+ years, backend &amp; search → applied AI.</p></div>
+      <div class="timeline reveal d1">
+        <div class="tl-item"><div class="co">TELLIUS</div><h3>Senior Software Engineer</h3><div class="when">Jul 2025 – Present · Bengaluru</div><p>Own major subsystems of Tellius's GenAI analytics assistant: agentic app generation, Text-to-SQL, a provider-agnostic multi-LLM abstraction, real-time voice AI, and orchestrator parallelization.</p></div>
+        <div class="tl-item"><div class="co">TELLIUS</div><h3>Software Engineer 2</h3><div class="when">Dec 2024 – Jun 2025 · Bengaluru</div><p>Built the agentic Deep Insights pipeline (intent → generation → validation → summary → follow-up) and the foundation of the multi-LLM abstraction with real-time config reload.</p></div>
+        <div class="tl-item"><div class="co">PRACTO</div><h3>Lead Software Engineer</h3><div class="when">Jul 2024 – Nov 2024 · Bengaluru</div><p>Led the consumer backend team (4 engineers) owning search, listings, growth, and content services; mentored interns; led the Cloudflare → Akamai CDN migration.</p></div>
+        <div class="tl-item"><div class="co">PRACTO</div><h3>Senior Software Engineer</h3><div class="when">Aug 2023 – Jun 2024 · Bengaluru</div><p>Replaced heuristic listing ranking with ML learning-to-rank (Elasticsearch LTR + ML models); launched Listings &amp; Profiles in the UAE; built the first patient-facing GenAI chat.</p></div>
+        <div class="tl-item"><div class="co">PRACTO</div><h3>Software Engineer 2</h3><div class="when">Jul 2021 – Jul 2023 · Bengaluru</div><p>Owned the doctor-listing ranking algorithm; built the surgery billing system (Spring Boot) for the new secondary-care vertical — to production in ~10 days. Value Champ &amp; Ace awards.</p></div>
+        <div class="tl-item"><div class="co">PRACTO</div><h3>Software Engineer 1</h3><div class="when">Jul 2020 – Jul 2021 · Bengaluru</div><p>Built and containerized the search-indexing service (Spring Boot, Elasticsearch) with realtime event-based sync; migrated autocomplete from Lucene to Elasticsearch; shipped teleconsultation features during the COVID surge.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACHIEVEMENTS -->
+  <section id="achievements">
+    <div class="wrap reveal">
+      <h2><span class="n">06</span>Achievements</h2>
+      <p class="section-lead">Recognition along the way.</p>
+      <span class="badge">🏆 Hackathon Winner, Tellius <span class="y">· 2025</span></span>
+      <span class="badge">⭐ Value Champ &amp; Ace Awards, Practo <span class="y">· 2021–2022</span></span>
+      <p class="section-lead" style="margin:6px 0 14px; font-size:.88rem;">Click a certificate to view the PDF ↗</p>
+      <div class="awards">
+        <a href="Ace%20-%20oct%202021.pdf" target="_blank" rel="noopener" title="Ace Award — October 2021 (PDF)"><img src="oct_2021.jpg" alt="Ace Award, Oct 2021" loading="lazy"></a>
+        <a href="Ace%20-%20sept%202022.pdf" target="_blank" rel="noopener" title="Ace Award — September 2022 (PDF)"><img src="sep_2022.jpg" alt="Ace Award, Sep 2022" loading="lazy"></a>
+        <a href="value%20champ%20-%20dec%202022.pdf" target="_blank" rel="noopener" title="Value Champ Award — December 2022 (PDF)"><img src="dec_2022.jpg" alt="Value Champ Award, Dec 2022" loading="lazy"></a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div>© Rahul B U · 2026 · Bengaluru, India</div>
+      <div class="social">
+        <a href="https://www.linkedin.com/in/rahulbu/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1-.02-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.3-.02-2.96-1.8-2.96-1.8 0-2.08 1.4-2.08 2.86V21H9z"/></svg></a>
+        <a href="https://github.com/rahulbu" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49v-1.7c-2.78.62-3.37-1.22-3.37-1.22-.46-1.18-1.11-1.5-1.11-1.5-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.9 1.57 2.34 1.12 2.91.86.09-.66.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9v2.82c0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2z"/></svg></a>
+        <a href="mailto:mail.rahulbu@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M2 4h20v16H2z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M2 5l10 8L22 5" fill="none" stroke="currentColor" stroke-width="2"/></svg></a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
 </body>
 </html>

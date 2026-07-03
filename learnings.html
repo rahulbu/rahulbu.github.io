@@ -1,2 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Notes — Rahul B U</title>
+  <meta name="description" content="Short engineering notes by Rahul B U on building Gen AI, search, and reliable systems.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="style.css">
+  <script>(function(){try{var t=localStorage.getItem('theme');if(!t){t=matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}if(t==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}document.documentElement.classList.add('js');})();</script>
+</head>
+<body>
 
-learnings 
+  <div class="nav">
+    <div class="wrap">
+      <a class="brand" href="index.html">Rahul B U</a>
+      <nav>
+        <a href="index.html#about">About</a>
+        <a href="work.html">Work</a>
+        <a href="index.html#experience">Experience</a>
+        <a class="btn primary" href="resume.pdf" target="_blank" rel="noopener">Résumé</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle light / dark">
+          <svg class="sun" viewBox="0 0 24 24"><path d="M12 17a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-13a1 1 0 0 1 1 1v1a1 1 0 0 1-2 0V5a1 1 0 0 1 1-1zm0 14a1 1 0 0 1 1 1v1a1 1 0 0 1-2 0v-1a1 1 0 0 1 1-1zM4 12a1 1 0 0 1 1-1h1a1 1 0 0 1 0 2H5a1 1 0 0 1-1-1zm14 0a1 1 0 0 1 1-1h1a1 1 0 0 1 0 2h-1a1 1 0 0 1-1-1zM5.6 5.6a1 1 0 0 1 1.4 0l.7.7a1 1 0 0 1-1.4 1.4l-.7-.7a1 1 0 0 1 0-1.4zm10.7 10.7a1 1 0 0 1 1.4 0l.7.7a1 1 0 0 1-1.4 1.4l-.7-.7a1 1 0 0 1 0-1.4zM18.4 5.6a1 1 0 0 1 0 1.4l-.7.7a1 1 0 0 1-1.4-1.4l.7-.7a1 1 0 0 1 1.4 0zM7.7 16.3a1 1 0 0 1 0 1.4l-.7.7a1 1 0 1 1-1.4-1.4l.7-.7a1 1 0 0 1 1.4 0z"/></svg>
+          <svg class="moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        </button>
+      </nav>
+    </div>
+  </div>
+
+  <section style="border-top:0;">
+    <div class="wrap">
+      <a class="back" href="index.html">← Back</a>
+      <h2>Notes</h2>
+      <p class="section-lead">Short takes from building Gen AI on top of real systems.</p>
+
+      <div class="note">
+        <h3>The model is the easy part</h3>
+        <p>Everyone obsesses over which LLM to use. But whether an AI feature actually ships comes down to the unglamorous engineering around it — clean data, retrieval quality, latency, observability, and the judgment to know when <em>not</em> to reach for a model at all. The teams that win with Gen AI aren't chasing the newest model; they're the ones who can wrap a reliable system around it.</p>
+      </div>
+
+      <div class="note">
+        <h3>RAG is a search problem</h3>
+        <p>Most "our AI gives wrong answers" bugs aren't model bugs — they're retrieval bugs. If you're building RAG, the model is maybe 20% of the quality; the rest is putting the right context in front of it: chunking that respects meaning, hybrid keyword + vector search, and re-ranking before anything reaches the model. Years of Elasticsearch turned out to be more useful here than anything AI-specific.</p>
+      </div>
+
+      <div class="note">
+        <h3>When not to use an LLM</h3>
+        <p>The most senior move in AI engineering is often saying "we don't need an LLM for this." Plenty of "AI features" are really a regex, a SQL query, or a small rules function — faster, cheaper, deterministic, and debuggable at 2am. LLMs are great for genuinely fuzzy, language-shaped problems; they're an expensive choice for problems that have a correct answer you can compute. Reliability is a feature.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div>© Rahul B U · 2026</div>
+      <div class="social">
+        <a href="https://www.linkedin.com/in/rahulbu/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1-.02-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.3-.02-2.96-1.8-2.96-1.8 0-2.08 1.4-2.08 2.86V21H9z"/></svg></a>
+        <a href="https://github.com/rahulbu" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49v-1.7c-2.78.62-3.37-1.22-3.37-1.22-.46-1.18-1.11-1.5-1.11-1.5-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.9 1.57 2.34 1.12 2.91.86.09-.66.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9v2.82c0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2z"/></svg></a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

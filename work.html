@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Work — Rahul B U</title>
+  <meta name="description" content="In-depth case studies: GenAI analytics assistant, agentic app generation, Text-to-SQL, real-time voice AI, multi-LLM platform, and large-scale search & ranking.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="style.css">
+  <script>(function(){try{var t=localStorage.getItem('theme');if(!t){t=matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}if(t==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}document.documentElement.classList.add('js');})();</script>
+</head>
+<body>
+
+  <div class="nav">
+    <div class="wrap">
+      <a class="brand" href="index.html">Rahul B U</a>
+      <nav>
+        <a href="index.html#about">About</a>
+        <a href="index.html#journey">Journey</a>
+        <a href="index.html#experience">Experience</a>
+        <a href="learnings.html">Notes</a>
+        <a class="btn primary" href="resume.pdf" target="_blank" rel="noopener">Résumé</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle light / dark">
+          <svg class="sun" viewBox="0 0 24 24"><path d="M12 17a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-13a1 1 0 0 1 1 1v1a1 1 0 0 1-2 0V5a1 1 0 0 1 1-1zm0 14a1 1 0 0 1 1 1v1a1 1 0 0 1-2 0v-1a1 1 0 0 1 1-1zM4 12a1 1 0 0 1 1-1h1a1 1 0 0 1 0 2H5a1 1 0 0 1-1-1zm14 0a1 1 0 0 1 1-1h1a1 1 0 0 1 0 2h-1a1 1 0 0 1-1-1zM5.6 5.6a1 1 0 0 1 1.4 0l.7.7a1 1 0 0 1-1.4 1.4l-.7-.7a1 1 0 0 1 0-1.4zm10.7 10.7a1 1 0 0 1 1.4 0l.7.7a1 1 0 0 1-1.4 1.4l-.7-.7a1 1 0 0 1 0-1.4zM18.4 5.6a1 1 0 0 1 0 1.4l-.7.7a1 1 0 0 1-1.4-1.4l.7-.7a1 1 0 0 1 1.4 0zM7.7 16.3a1 1 0 0 1 0 1.4l-.7.7a1 1 0 1 1-1.4-1.4l.7-.7a1 1 0 0 1 1.4 0z"/></svg>
+          <svg class="moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        </button>
+      </nav>
+    </div>
+  </div>
+
+  <header class="hero" style="padding:66px 0 46px;">
+    <div class="blob b1"></div>
+    <div class="wrap">
+      <a class="back" href="index.html">← Back home</a>
+      <div class="eyebrow">Case Studies</div>
+      <h1 style="font-size:2.6rem;">The <span class="accent">Work</span>, in depth.</h1>
+      <p class="intro">Deep dives into the systems I've designed and owned — the problem, the engineering, and what shipped. Employer-internal names, customers, and ticket references are omitted; everything below is described functionally.</p>
+      <div class="chips" style="margin-top:22px;">
+        <a class="chip" href="#assistant">GenAI Assistant</a>
+        <a class="chip" href="#apps">Agentic App Gen</a>
+        <a class="chip" href="#texttosql">Text-to-SQL</a>
+        <a class="chip" href="#voice">Voice AI</a>
+        <a class="chip" href="#multillm">Multi-LLM Platform</a>
+        <a class="chip" href="#search">Search &amp; Ranking</a>
+        <a class="chip" href="#abdm">ABDM Health-Data</a>
+        <a class="chip" href="#surgeries">Surgeries Backend</a>
+        <a class="chip" href="#platform">Platform &amp; Infra</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== 1. Assistant ===== -->
+  <section class="case" id="assistant">
+    <div class="wrap reveal">
+      <div class="kicker">Tellius · Generative AI</div>
+      <h2>GenAI Analytics Assistant</h2>
+      <div class="role">Software Engineer 2 → Senior Software Engineer · 2024 – present · owner of multiple core subsystems</div>
+      <p>A conversational analytics product: ask a question in plain English and get back SQL, insights, charts, generated apps, or a spoken answer. Under the hood it's a Python <b>multi-agent</b> system built on LangGraph, where an orchestrator plans a request and routes it to specialised agents that share a common LLM, retrieval, and observability foundation.</p>
+
+      <div class="diagram">
+        <svg viewBox="0 0 940 372" role="img" aria-label="Architecture of the GenAI analytics assistant">
+          <defs><marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#5b9dff"/></marker></defs>
+          <rect x="16" y="150" width="132" height="60" rx="10" fill="#16233b" stroke="#22304c"/>
+          <text x="82" y="176" fill="#e9eff8" font-size="13" text-anchor="middle">Natural-language</text><text x="82" y="194" fill="#93a4c2" font-size="12" text-anchor="middle">question</text>
+          <line class="flowline" x1="148" y1="180" x2="196" y2="180" stroke="#5b9dff" stroke-width="1.6" marker-end="url(#ah)"/>
+          <rect x="200" y="140" width="150" height="80" rx="12" fill="#0e1830" stroke="#5b9dff"/>
+          <text x="275" y="172" fill="#e9eff8" font-size="13.5" text-anchor="middle" font-weight="700">Orchestrator</text><text x="275" y="190" fill="#93a4c2" font-size="11.5" text-anchor="middle">LangGraph · parallelized</text><text x="275" y="205" fill="#93a4c2" font-size="11.5" text-anchor="middle">planning &amp; routing</text>
+          <g font-size="12.5" fill="#e9eff8" text-anchor="middle">
+            <rect x="430" y="34" width="176" height="46" rx="9" fill="#16233b" stroke="#22304c"/><text x="518" y="62">Text-to-SQL</text>
+            <rect x="430" y="104" width="176" height="46" rx="9" fill="#16233b" stroke="#22304c"/><text x="518" y="132">Deep Insights</text>
+            <rect x="430" y="174" width="176" height="46" rx="9" fill="#16233b" stroke="#22304c"/><text x="518" y="202">Agentic App Gen</text>
+            <rect x="430" y="244" width="176" height="46" rx="9" fill="#16233b" stroke="#22304c"/><text x="518" y="272">Voice Agent</text>
+          </g>
+          <g stroke="#5b9dff" stroke-width="1.4" fill="none" opacity="0.7" marker-end="url(#ah)">
+            <path class="flowline" d="M350 165 C 395 120, 400 90, 428 57"/><path class="flowline" d="M350 175 C 395 150, 400 135, 428 127"/>
+            <path class="flowline" d="M350 190 C 395 200, 400 190, 428 197"/><path class="flowline" d="M350 200 C 395 245, 400 250, 428 267"/>
+          </g>
+          <rect x="676" y="120" width="150" height="88" rx="12" fill="#0e1830" stroke="#34d399"/>
+          <text x="751" y="150" fill="#e9eff8" font-size="12.5" text-anchor="middle">SQL · insights</text><text x="751" y="168" fill="#e9eff8" font-size="12.5" text-anchor="middle">dashboards · apps</text><text x="751" y="188" fill="#93a4c2" font-size="11" text-anchor="middle">· spoken answers</text>
+          <g stroke="#34d399" stroke-width="1.3" fill="none" opacity="0.65" marker-end="url(#ah)">
+            <path class="flowline" d="M606 57 C 650 90, 655 120, 674 150"/><path class="flowline" d="M606 127 C 645 140, 650 150, 674 158"/>
+            <path class="flowline" d="M606 197 C 645 185, 650 175, 674 168"/><path class="flowline" d="M606 267 C 650 235, 655 200, 674 176"/>
+          </g>
+          <rect x="16" y="318" width="810" height="42" rx="10" fill="#111c33" stroke="#22304c"/>
+          <text x="421" y="344" fill="#93a4c2" font-size="12.5" text-anchor="middle">Multi-LLM fleet (Claude · OpenAI · Gemini · Bedrock)  ·  Vector store / RAG (Chroma · Qdrant)  ·  LangSmith tracing</text>
+        </svg>
+        <div class="cap">An orchestrator routes a question to specialised agents, all sharing a provider-agnostic LLM fleet, a RAG vector store, and tracing.</div>
+      </div>
+
+      <div class="grid">
+        <div class="block"><h4>Problem</h4><p>Analysts want answers from their data in plain English — not dashboards to configure or SQL to write. The hard part isn't calling a model; it's reliably turning a fuzzy, multi-step question into correct, fast analysis over large datasets — and knowing when the question is ambiguous.</p></div>
+        <div class="block"><h4>Orchestration</h4><ul>
+          <li>A LangGraph orchestrator <b>plans</b> each request and routes to the right agent(s), with workflow routing/approval and guardrails on which workflows can run.</li>
+          <li><b>Parallelised</b> the orchestrator — web-search, dimension-filter extraction, and routing run concurrently to cut end-to-end latency.</li>
+          <li>A dedicated <b>time-filter architecture</b> combines an LLM-backed retriever with pattern matching to resolve date/时间 ranges accurately.</li>
+        </ul></div>
+        <div class="block"><h4>Reliability &amp; ops</h4><ul>
+          <li>Health endpoints, index cleanup, and business-view cache eviction for correctness under live data changes.</li>
+          <li>Surfaced actionable error messages instead of opaque failures; added tracing across every agent run.</li>
+          <li>Live-data insight support and export paths (e.g. presentation export).</li>
+        </ul></div>
+      </div>
+      <div class="impact">
+        <div class="m"><div class="k">~30%</div><div class="v">query latency reduction</div></div>
+        <div class="m"><div class="k">4+</div><div class="v">LLM providers, hot-swappable</div></div>
+        <div class="m"><div class="k">4</div><div class="v">agent subsystems owned</div></div>
+      </div>
+      <div class="taglist"><span class="t">Python</span><span class="t">LangGraph</span><span class="t">LangChain</span><span class="t">RAG</span><span class="t">LangSmith</span><span class="t">Jinja2 prompts</span></div>
+    </div>
+  </section>
+
+  <!-- ===== 2. Apps ===== -->
+  <section class="case" id="apps">
+    <div class="wrap reveal">
+      <div class="kicker">Tellius · Generative AI</div>
+      <h2>Agentic App Generation</h2>
+      <div class="role">Senior Software Engineer · primary owner · current focus</div>
+      <p>The largest and most recent body of my work: an agentic system that generates interactive, editable data applications (React/TSX) from a natural-language prompt — then supports conversational editing of the result. It's a code-generation problem wrapped in an agent loop, with a lot of engineering to make generation reliable and edits cheap.</p>
+
+      <div class="diagram">
+        <svg viewBox="0 0 900 176" role="img" aria-label="Agentic app-generation build-validate-fix loop">
+          <defs><marker id="ah2" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#5b9dff"/></marker></defs>
+          <g font-size="12.5" fill="#e9eff8" text-anchor="middle">
+            <rect x="12" y="60" width="118" height="46" rx="9" fill="#0e1830" stroke="#5b9dff"/><text x="71" y="88">Prompt</text>
+            <rect x="170" y="60" width="118" height="46" rx="9" fill="#16233b" stroke="#22304c"/><text x="229" y="82">Plan +</text><text x="229" y="97" font-size="11" fill="#93a4c2">design system</text>
+            <rect x="328" y="60" width="130" height="46" rx="9" fill="#16233b" stroke="#22304c"/><text x="393" y="82">Generate</text><text x="393" y="97" font-size="11" fill="#93a4c2">modular TSX</text>
+            <rect x="498" y="60" width="110" height="46" rx="9" fill="#16233b" stroke="#22304c"/><text x="553" y="88">Build</text>
+            <rect x="648" y="60" width="120" height="46" rx="9" fill="#16233b" stroke="#fbbf24"/><text x="708" y="88">Validate</text>
+            <rect x="806" y="60" width="82" height="46" rx="9" fill="#0e1830" stroke="#34d399"/><text x="847" y="88">App</text>
+          </g>
+          <g stroke="#5b9dff" stroke-width="1.5" fill="none" marker-end="url(#ah2)">
+            <line class="flowline" x1="130" y1="83" x2="168" y2="83"/><line class="flowline" x1="288" y1="83" x2="326" y2="83"/><line class="flowline" x1="458" y1="83" x2="496" y2="83"/><line class="flowline" x1="608" y1="83" x2="646" y2="83"/><line class="flowline" x1="768" y1="83" x2="804" y2="83"/>
+          </g>
+          <path class="looppath" d="M708 106 C 708 150, 393 150, 393 108" fill="none" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#ah2)"/>
+          <text x="550" y="145" fill="#fbbf24" font-size="11.5" text-anchor="middle">fix loop — re-generate on validation failure</text>
+        </svg>
+        <div class="cap">A prompt becomes a working app through a build → validate → fix loop, then supports conversational, diff-based edits.</div>
+      </div>
+
+      <div class="grid">
+        <div class="block"><h4>How generation works</h4><ul>
+          <li>A chat-driven flow gathers context via a <b>context node</b> and a shared <b>design system</b>, then produces a plan/blueprint before any code.</li>
+          <li><b>Modular, content-addressed code generation</b> — git-like code-module rows with a per-version manifest, replacing a non-scalable monolithic approach.</li>
+          <li>An agentic <b>build → validate → fix</b> loop: the app is compiled, validated, and re-generated on failure until it renders.</li>
+        </ul></div>
+        <div class="block"><h4>Editing without breaking the bank</h4><ul>
+          <li><b>Progressive-disclosure, read-before-write</b> edits — target only the section being changed so small edits send minimal context.</li>
+          <li><b>Diff-based &amp; JSON-patch edits</b> to cut per-edit LLM tokens.</li>
+          <li>Migration path to convert older monolithic apps into code modules on first edit.</li>
+        </ul></div>
+        <div class="block"><h4>Lifecycle &amp; platform</h4><ul>
+          <li>Full versioning — switch, overwrite, delete, archive/unarchive, and version pruning.</li>
+          <li>Async APIs for app creation and data refresh; <b>scheduled data refresh</b>.</li>
+          <li>Multi-view (multi-dataset) support with consistent version handling.</li>
+        </ul></div>
+        <div class="block"><h4>Extensibility</h4><ul>
+          <li>A <b>two-layer skills system</b> (implementation vs. behavioural) injected across the planner, context-gatherer, and code-gen stages, with pre-loaded domain/global skills.</li>
+          <li>File and image upload support; data-compatibility checks and "ask-user" clarification.</li>
+          <li>In-flight: interactive, in-app data exploration spanning the agent, renderer, and frontend.</li>
+        </ul></div>
+      </div>
+      <div class="impact">
+        <div class="m"><div class="k">Prompt → App</div><div class="v">end-to-end generation</div></div>
+        <div class="m"><div class="k">diff edits</div><div class="v">cut per-edit LLM cost</div></div>
+        <div class="m"><div class="k">versioned</div><div class="v">safe iterate &amp; rollback</div></div>
+      </div>
+      <div class="taglist"><span class="t">LangGraph agents</span><span class="t">React / TSX codegen</span><span class="t">content-addressed modules</span><span class="t">Jinja2 prompts</span><span class="t">async jobs</span></div>
+    </div>
+  </section>
+
+  <!-- ===== 3. Text-to-SQL ===== -->
+  <section class="case" id="texttosql">
+    <div class="wrap reveal">
+      <div class="kicker">Tellius · Generative AI</div>
+      <h2>Text-to-SQL &amp; Semantic Query</h2>
+      <div class="role">Software Engineer 2 → Senior Software Engineer · 2025</div>
+      <p>Turning a question into correct SQL is less about the model and more about structure: first resolve the question into an unambiguous analytic specification, then generate SQL, then execute it safely — learning from prior queries along the way.</p>
+
+      <div class="diagram">
+        <svg viewBox="0 0 900 210" role="img" aria-label="Text-to-SQL pipeline">
+          <defs><marker id="ah4" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#5b9dff"/></marker></defs>
+          <g font-size="12.5" fill="#e9eff8" text-anchor="middle">
+            <rect x="12" y="30" width="120" height="48" rx="9" fill="#0e1830" stroke="#5b9dff"/><text x="72" y="58">NL question</text>
+            <rect x="168" y="30" width="150" height="48" rx="9" fill="#16233b" stroke="#22304c"/><text x="243" y="52">Semantic spec</text><text x="243" y="68" font-size="10.5" fill="#93a4c2">aggregations · filters · time</text>
+            <rect x="354" y="30" width="140" height="48" rx="9" fill="#16233b" stroke="#22304c"/><text x="424" y="58">SQL generation</text>
+            <rect x="530" y="30" width="120" height="48" rx="9" fill="#16233b" stroke="#fbbf24"/><text x="590" y="58">Execute</text>
+            <rect x="686" y="30" width="150" height="48" rx="9" fill="#0e1830" stroke="#34d399"/><text x="761" y="52">Answer + chart</text>
+            <rect x="300" y="150" width="200" height="42" rx="9" fill="#111c33" stroke="#5b9dff"/><text x="400" y="171" font-size="11.5">Query-seed store (RAG)</text><text x="400" y="185" font-size="10" fill="#93a4c2">learned examples + variations</text>
+          </g>
+          <g stroke="#5b9dff" stroke-width="1.5" fill="none" marker-end="url(#ah4)">
+            <line class="flowline" x1="132" y1="54" x2="166" y2="54"/><line class="flowline" x1="318" y1="54" x2="352" y2="54"/><line class="flowline" x1="494" y1="54" x2="528" y2="54"/><line class="flowline" x1="650" y1="54" x2="684" y2="54"/>
+          </g>
+          <path class="looppath" d="M590 78 C 590 118, 424 118, 424 80" fill="none" stroke="#fbbf24" stroke-width="1.4" marker-end="url(#ah4)"/>
+          <text x="507" y="112" fill="#fbbf24" font-size="11" text-anchor="middle">execution-failure retry</text>
+          <path class="flowline" d="M400 150 C 400 120, 243 110, 243 80" stroke="#5b9dff" stroke-width="1.3" fill="none" stroke-dasharray="4 5" marker-end="url(#ah4)"/>
+          <path class="flowline" d="M430 150 C 440 120, 424 110, 424 80" stroke="#5b9dff" stroke-width="1.3" fill="none" stroke-dasharray="4 5" marker-end="url(#ah4)"/>
+        </svg>
+        <div class="cap">Question → semantic spec → SQL → execute, with a retry loop and a RAG query-seed store feeding learned examples back in.</div>
+      </div>
+
+      <div class="grid">
+        <div class="block"><h4>Semantic layer first</h4><ul>
+          <li>A structured layer converts a question into an analytic spec — <b>aggregations, filters, comparisons, group-by, HAVING, top/bottom, time resolution</b> — before any SQL.</li>
+          <li>Handles multi-comparison, market-share filters, enum-based aggregation, and case-insensitive matching; normalises dimension-filter operators (contains / not-equal / like).</li>
+          <li>Asks the user to clarify when a request is genuinely ambiguous.</li>
+        </ul></div>
+        <div class="block"><h4>Learning from past queries</h4><ul>
+          <li><b>Query-seed learning</b> — index seed queries and their variations into a vector store, then retrieve learned examples for new questions (RAG).</li>
+          <li>A learning loop keeps improving coverage as more queries are seen.</li>
+        </ul></div>
+        <div class="block"><h4>Robust SQL generation</h4><ul>
+          <li>Charting output, a clarification flow, and <b>retry on execution failure</b>.</li>
+          <li><b>ClickHouse</b> dialect support, alias/column handling, CTE correctness, and fact-to-fact join guards.</li>
+        </ul></div>
+        <div class="block"><h4>Fast &amp; tunable</h4><ul>
+          <li>An <b>LLM response cache</b> avoids repeat calls; per-stage multi-LLM assignment.</li>
+          <li>Prompt-variation support and a debug mode; exposed/configurable prompts.</li>
+          <li>Net effect: <b>~30% lower query latency</b> via context optimization and caching.</li>
+        </ul></div>
+      </div>
+      <div class="impact"><div class="m"><div class="k">~30%</div><div class="v">latency reduction</div></div><div class="m"><div class="k">multi-step</div><div class="v">reasoning + clarification</div></div></div>
+      <div class="taglist"><span class="t">Text-to-SQL</span><span class="t">semantic layer</span><span class="t">RAG</span><span class="t">ClickHouse</span><span class="t">response cache</span></div>
+    </div>
+  </section>
+
+  <!-- ===== 4. Voice ===== -->
+  <section class="case" id="voice">
+    <div class="wrap reveal">
+      <div class="kicker">Tellius · Generative AI</div>
+      <h2>Real-time Voice AI</h2>
+      <div class="role">Senior Software Engineer · 2025 – 2026</div>
+      <p>Real-time, spoken conversation with the analytics assistant — the kind of feature that demos in minutes but only survives real traffic with the right backend plumbing.</p>
+      <div class="grid">
+        <div class="block"><h4>The agents</h4><ul>
+          <li>Integrated multiple providers behind one pattern: a <b>Deepgram</b> voice agent (with a switch to its low-latency model), an <b>ElevenLabs</b> agent over <b>WebRTC</b>, and <b>OpenAI Realtime</b>.</li>
+          <li>Tools, prompts, and ASR keywords <b>hot-sync</b> on startup and per session — config resolves from middleware with an environment fallback.</li>
+        </ul></div>
+        <div class="block"><h4>The infra detail that mattered</h4><ul>
+          <li>WebSockets don't work on the default web-server worker — I moved the service to a <b>gevent</b> worker model.</li>
+          <li>Tuned concurrency to <b>~500 concurrent voice sockets</b>, and improved audio playback smoothness.</li>
+        </ul></div>
+        <div class="block"><h4>Observability</h4><ul>
+          <li><b>LangSmith tracing</b> across voice tool runs to debug real conversations.</li>
+          <li>Fixed voice-mode context handling so spoken sessions carry the same reasoning as text.</li>
+        </ul></div>
+      </div>
+      <div class="taglist"><span class="t">WebRTC</span><span class="t">WebSockets</span><span class="t">Deepgram</span><span class="t">ElevenLabs</span><span class="t">OpenAI Realtime</span><span class="t">gevent</span><span class="t">LangSmith</span></div>
+    </div>
+  </section>
+
+  <!-- ===== 5. Multi-LLM ===== -->
+  <section class="case" id="multillm">
+    <div class="wrap reveal">
+      <div class="kicker">Tellius · Platform</div>
+      <h2>Multi-LLM / Provider Abstraction</h2>
+      <div class="role">SE2 → Senior Software Engineer · 2025, ongoing</div>
+      <p>A GenAI product shouldn't be married to one vendor, or need a redeploy to change a model. I built the provider-agnostic layer the whole assistant runs on.</p>
+      <div class="grid">
+        <div class="block"><h4>The abstraction</h4><ul>
+          <li>A unified config abstraction over <b>Anthropic Claude, OpenAI, Google Gemini/Vertex, AWS Bedrock</b> (and Azure OpenAI).</li>
+          <li><b>Per-stage model assignment</b> — each step of the pipeline can use the model best suited to it.</li>
+        </ul></div>
+        <div class="block"><h4>Hot config, no restart</h4><ul>
+          <li>Real-time config sync via a <b>message-queue (RabbitMQ) listener</b> — model/assignment changes reset and reload models live, without a redeploy.</li>
+          <li>A config-validation API with structured output catches bad config before it ships.</li>
+        </ul></div>
+        <div class="block"><h4>Reliability</h4><ul>
+          <li><b>Blind retry with failure-cache eviction</b> so a transient failure doesn't poison the cache.</li>
+          <li>Thread-safe LLM caching; structured-output support across providers.</li>
+          <li>Led a major LangChain / LangGraph version upgrade across the codebase.</li>
+        </ul></div>
+      </div>
+      <div class="taglist"><span class="t">multi-provider</span><span class="t">hot reload</span><span class="t">RabbitMQ</span><span class="t">caching</span><span class="t">retry / fallback</span><span class="t">structured output</span></div>
+    </div>
+  </section>
+
+  <!-- ===== 6. Search ===== -->
+  <section class="case" id="search">
+    <div class="wrap reveal">
+      <div class="kicker">Practo · Search &amp; ML</div>
+      <h2>Search &amp; Ranking Platform</h2>
+      <div class="role">SE1 → Senior Software Engineer · ~5 years of ownership</div>
+      <p>For nearly five years I owned doctor/clinic discovery — the indexing platform, the query path, autocomplete, and the ranking that decides who shows up first. It's also where the search→AI throughline begins: retrieval, ranking, and relevance are exactly the muscles that make RAG and Text-to-SQL work later.</p>
+
+      <div class="diagram">
+        <svg viewBox="0 0 900 200" role="img" aria-label="Evolution of the search ranking system">
+          <defs><marker id="ah3" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#5b9dff"/></marker></defs>
+          <g text-anchor="middle" font-size="12">
+            <rect x="20" y="120" width="180" height="52" rx="9" fill="#16233b" stroke="#22304c"/><text x="110" y="142" fill="#e9eff8">Search Indexer</text><text x="110" y="159" fill="#93a4c2" font-size="10.5">Spring Boot · Elasticsearch</text>
+            <rect x="240" y="92" width="180" height="52" rx="9" fill="#16233b" stroke="#22304c"/><text x="330" y="114" fill="#e9eff8">Realtime + bucketisation</text><text x="330" y="131" fill="#93a4c2" font-size="10.5">event sync · autocomplete→ES</text>
+            <rect x="460" y="64" width="180" height="52" rx="9" fill="#16233b" stroke="#22304c"/><text x="550" y="86" fill="#e9eff8">Heuristic ranking</text><text x="550" y="103" fill="#93a4c2" font-size="10.5">hyperlocal weights</text>
+            <rect x="680" y="34" width="196" height="52" rx="9" fill="#0e1830" stroke="#5b9dff"/><text x="778" y="56" fill="#e9eff8" font-weight="700">ML Learning-to-Rank</text><text x="778" y="73" fill="#93a4c2" font-size="10.5">feature set · model · LTR store</text>
+          </g>
+          <g stroke="#5b9dff" stroke-width="1.5" fill="none" marker-end="url(#ah3)">
+            <line class="flowline" x1="200" y1="140" x2="238" y2="120"/><line class="flowline" x1="420" y1="112" x2="458" y2="92"/><line class="flowline" x1="640" y1="84" x2="678" y2="64"/>
+          </g>
+        </svg>
+        <div class="cap">Five years evolving discovery — from an indexer, to realtime bucketised ranking, to ML learning-to-rank.</div>
+      </div>
+
+      <div class="grid">
+        <div class="block"><h4>Indexing platform</h4><ul>
+          <li>Built and <b>containerized the search-indexer</b> (Spring Boot, Elasticsearch); migrated its build Gradle→Maven.</li>
+          <li><b>Realtime, event-based sync</b> plus one-time (re)indexing and environment-specific workers.</li>
+          <li>Elasticsearch multi-search queries, index-refresh handling, and partial updates.</li>
+        </ul></div>
+        <div class="block"><h4>Autocomplete</h4><ul>
+          <li>Migrated autocomplete from <b>Lucene to Elasticsearch</b>, with realtime indexing and partial updates.</li>
+          <li>Continually tuned autocomplete queries for relevance and speed.</li>
+        </ul></div>
+        <div class="block"><h4>Ranking evolution</h4><ul>
+          <li>Hyperlocal listing weights → <b>distance/availability bucketisation</b> → configurable bucketed weights.</li>
+          <li>Then <b>ML learning-to-rank</b>: built the feature set, the model, and an LTR store, integrated via an Elasticsearch LTR plugin.</li>
+        </ul></div>
+        <div class="block"><h4>Reach &amp; growth</h4><ul>
+          <li>Powered discovery for millions of patient searches; <b>launched Listings &amp; Profiles in the UAE</b>.</li>
+          <li>Google Feeds and sitemap generation for organic discovery; establishment data sync and merge-listing correctness.</li>
+        </ul></div>
+      </div>
+      <div class="impact"><div class="m"><div class="k">~5 yrs</div><div class="v">platform ownership</div></div><div class="m"><div class="k">UAE</div><div class="v">new market launched</div></div><div class="m"><div class="k">heuristic → ML</div><div class="v">ranking upgrade</div></div></div>
+      <div class="taglist"><span class="t">Elasticsearch</span><span class="t">Learning-to-Rank</span><span class="t">Spring Boot</span><span class="t">Lucene</span><span class="t">realtime indexing</span></div>
+    </div>
+  </section>
+
+  <!-- ===== 7. ABDM ===== -->
+  <section class="case" id="abdm">
+    <div class="wrap reveal">
+      <div class="kicker">Practo · Health-tech Platform</div>
+      <h2>ABDM National Health-Data Integration</h2>
+      <div class="role">Software Engineer 2 → Senior Software Engineer · 2023</div>
+      <p>India's Ayushman Bharat Digital Mission (ABDM) is a national, consent-first health-data network built on FHIR R4. Integrating a large platform into it — as both a provider and a consumer of records — is a serious interoperability and compliance effort.</p>
+
+      <div class="diagram">
+        <svg viewBox="0 0 900 190" role="img" aria-label="ABDM consent-based data exchange flow">
+          <defs><marker id="ah5" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#5b9dff"/></marker></defs>
+          <g text-anchor="middle" font-size="12.5" fill="#e9eff8">
+            <rect x="20" y="90" width="150" height="52" rx="9" fill="#0e1830" stroke="#5b9dff"/><text x="95" y="112">Platform (HIU)</text><text x="95" y="129" font-size="10.5" fill="#93a4c2">requests records</text>
+            <rect x="255" y="90" width="160" height="52" rx="9" fill="#16233b" stroke="#22304c"/><text x="335" y="112">Consent Manager</text><text x="335" y="129" font-size="10.5" fill="#93a4c2">HIE-CM</text>
+            <rect x="290" y="14" width="150" height="40" rx="9" fill="#16233b" stroke="#34d399"/><text x="365" y="39">Patient · ABHA</text>
+            <rect x="500" y="90" width="150" height="52" rx="9" fill="#16233b" stroke="#22304c"/><text x="575" y="112">Provider (HIP)</text>
+            <rect x="710" y="90" width="170" height="52" rx="9" fill="#0e1830" stroke="#34d399"/><text x="795" y="112">FHIR R4 bundle</text><text x="795" y="129" font-size="10.5" fill="#93a4c2">back to platform</text>
+          </g>
+          <g stroke="#5b9dff" stroke-width="1.5" fill="none" marker-end="url(#ah5)">
+            <line class="flowline" x1="170" y1="112" x2="253" y2="112"/>
+            <line class="flowline" x1="415" y1="108" x2="498" y2="108"/>
+            <line class="flowline" x1="650" y1="112" x2="708" y2="112"/>
+          </g>
+          <g stroke="#34d399" stroke-width="1.4" fill="none" marker-end="url(#ah5)" opacity="0.8">
+            <path class="flowline" d="M335 90 L 350 56"/><path class="flowline" d="M380 56 L 360 90"/>
+          </g>
+          <text x="365" y="74" fill="#34d399" font-size="10.5" text-anchor="middle">consent</text>
+        </svg>
+        <div class="cap">Records only flow on patient consent: the platform requests via the consent manager, the patient approves, and the provider returns a FHIR R4 bundle.</div>
+      </div>
+
+      <div class="grid">
+        <div class="block"><h4>What I built</h4><ul>
+          <li><b>HIP and HIU APIs</b> — the platform acts as both a health-information provider and user.</li>
+          <li><b>Consent flows</b> and consent-managed data transfers between HIP and HIU.</li>
+          <li><b>FHIR R4 parsers</b> to produce and consume compliant health-record bundles.</li>
+        </ul></div>
+        <div class="block"><h4>Why it's hard</h4><ul>
+          <li>Records move only on a patient's informed consent — a consent state machine, not a simple API call.</li>
+          <li>Requires patient identity (ABHA) and practitioner/facility registry integration, with strict compliance.</li>
+          <li>Interoperability with a national standard means the parsers must be exactly right.</li>
+        </ul></div>
+      </div>
+      <div class="taglist"><span class="t">ABDM</span><span class="t">FHIR R4</span><span class="t">HIP / HIU</span><span class="t">consent management</span><span class="t">interoperability</span></div>
+    </div>
+  </section>
+
+  <!-- ===== 8. Surgeries ===== -->
+  <section class="case" id="surgeries">
+    <div class="wrap reveal">
+      <div class="kicker">Practo · New Vertical</div>
+      <h2>Secondary-Care Surgeries Backend</h2>
+      <div class="role">Software Engineer 2 · 2021 – 2022</div>
+      <p>When the company launched a new secondary-care surgeries vertical, I built core backend for it — most notably a complete billing system — under real launch pressure.</p>
+      <div class="grid">
+        <div class="block"><h4>The billing system</h4><ul>
+          <li>A full <b>billing system</b> (Spring Boot): billing calculations with metric logging, <b>credit notes, auditing, invoicing</b>, and file downloads/uploads.</li>
+          <li>Operational <b>Retool dashboards</b> for the ops team.</li>
+          <li>Shipped to <b>production in ~10 days</b>.</li>
+        </ul></div>
+        <div class="block"><h4>Operations tooling</h4><ul>
+          <li><b>Lead-allocation</b> (LeadSquared) for routing surgery leads to agents.</li>
+          <li>Surgery relinking, lock/unlock of surgeries, contracts publishing, invoice mapping, and collections.</li>
+        </ul></div>
+        <div class="block"><h4>Platform work around it</h4><ul>
+          <li>Re-platformed the cross-service <b>aggregator to Spring Boot</b> and integrated it across all services in ~5 weeks.</li>
+          <li>Recognised with the <b>Value Champ &amp; Ace awards</b> for delivery.</li>
+        </ul></div>
+      </div>
+      <div class="impact"><div class="m"><div class="k">~10 days</div><div class="v">billing system to prod</div></div><div class="m"><div class="k">~5 weeks</div><div class="v">aggregator integration</div></div></div>
+      <div class="taglist"><span class="t">Spring Boot</span><span class="t">Retool</span><span class="t">billing</span><span class="t">auditing</span><span class="t">integrations</span></div>
+    </div>
+  </section>
+
+  <!-- ===== 9. Platform ===== -->
+  <section class="case" id="platform">
+    <div class="wrap reveal">
+      <div class="kicker">Practo · Platform &amp; Infra</div>
+      <h2>Platform, Infra &amp; Telemedicine</h2>
+      <div class="role">SE1 → Lead Software Engineer · 2020 – 2024</div>
+      <p>Across four years I also carried a lot of the platform: infrastructure migrations, a media pipeline, observability, and — during the COVID surge — shipping teleconsultation fast when it suddenly mattered most.</p>
+      <div class="grid">
+        <div class="block"><h4>Infrastructure &amp; migrations</h4><ul>
+          <li>Led the <b>Cloudflare → Akamai</b> edge/CDN migration (auto-scaling groups, Route 53, web config).</li>
+          <li>Service migrations to <b>Spring Boot + Java 11</b>; optimised Docker image builds.</li>
+          <li>Elasticsearch-cluster alerting (New Relic); a DynamoDB stream sync fix; a large sync-query migration.</li>
+        </ul></div>
+        <div class="block"><h4>Media pipeline</h4><ul>
+          <li>Media upload via <b>S3 presigned URLs</b> with a proxy-path scheme.</li>
+          <li>Image/video transformation through Cloudinary.</li>
+        </ul></div>
+        <div class="block"><h4>Telemedicine (COVID surge)</h4><ul>
+          <li>Shipped teleconsultation fast as demand spiked — <b>Agora video</b> with cloud recording, a "video-first" flow, and <b>IVR call routing</b>.</li>
+          <li>Launched India Health Hour; redesigned the Practo Consult <b>prescription flow</b>.</li>
+          <li>Early <b>GraphQL</b> work on the app home; a "My Doctors" API; bulk CSV upload tooling.</li>
+        </ul></div>
+      </div>
+      <div class="taglist"><span class="t">Akamai</span><span class="t">AWS</span><span class="t">Java 11</span><span class="t">Docker</span><span class="t">Agora</span><span class="t">GraphQL</span><span class="t">New Relic</span></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div>© Rahul B U · 2026 &nbsp;·&nbsp; <a href="index.html">Home</a> &nbsp;·&nbsp; <a href="learnings.html">Notes</a></div>
+      <div class="social">
+        <a href="https://www.linkedin.com/in/rahulbu/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1-.02-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.3-.02-2.96-1.8-2.96-1.8 0-2.08 1.4-2.08 2.86V21H9z"/></svg></a>
+        <a href="https://github.com/rahulbu" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49v-1.7c-2.78.62-3.37-1.22-3.37-1.22-.46-1.18-1.11-1.5-1.11-1.5-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.9 1.57 2.34 1.12 2.91.86.09-.66.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9v2.82c0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2z"/></svg></a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
