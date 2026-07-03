@@ -5,6 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Work — Rahul B U</title>
   <meta name="description" content="In-depth case studies: GenAI analytics assistant, agentic app generation, Text-to-SQL, real-time voice AI, multi-LLM platform, and large-scale search & ranking.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://rahulbu.github.io/work.html">
+  <meta property="og:title" content="Work — Rahul B U · Engineering Case Studies">
+  <meta property="og:description" content="Deep dives into GenAI analytics, agentic app generation, Text-to-SQL, voice AI, and large-scale search & ranking.">
+  <meta property="og:image" content="https://rahulbu.github.io/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://rahulbu.github.io/og.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -51,8 +58,19 @@
     </div>
   </header>
 
+  <div class="wrap">
+    <div class="filterbar" data-filterbar>
+      <span style="color:var(--muted); font-size:.85rem; align-self:center; margin-right:4px;">Filter:</span>
+      <button data-filter="all" class="on">All</button>
+      <button data-filter="ai">Generative AI</button>
+      <button data-filter="search">Search &amp; ML</button>
+      <button data-filter="healthtech">Health-tech</button>
+      <button data-filter="infra">Platform &amp; Infra</button>
+    </div>
+  </div>
+
   <!-- ===== 1. Assistant ===== -->
-  <section class="case" id="assistant">
+  <section class="case" id="assistant" data-tags="ai">
     <div class="wrap reveal">
       <div class="kicker">Tellius · Generative AI</div>
       <h2>GenAI Analytics Assistant</h2>
@@ -65,13 +83,13 @@
           <rect x="16" y="150" width="132" height="60" rx="10" fill="#16233b" stroke="#22304c"/>
           <text x="82" y="176" fill="#e9eff8" font-size="13" text-anchor="middle">Natural-language</text><text x="82" y="194" fill="#93a4c2" font-size="12" text-anchor="middle">question</text>
           <line class="flowline" x1="148" y1="180" x2="196" y2="180" stroke="#5b9dff" stroke-width="1.6" marker-end="url(#ah)"/>
-          <rect x="200" y="140" width="150" height="80" rx="12" fill="#0e1830" stroke="#5b9dff"/>
+          <rect x="200" y="140" width="150" height="80" rx="12" fill="#0e1830" stroke="#5b9dff" data-tip="Plans each request and routes it to the right agent(s), running independent steps in parallel to cut latency."/>
           <text x="275" y="172" fill="#e9eff8" font-size="13.5" text-anchor="middle" font-weight="700">Orchestrator</text><text x="275" y="190" fill="#93a4c2" font-size="11.5" text-anchor="middle">LangGraph · parallelized</text><text x="275" y="205" fill="#93a4c2" font-size="11.5" text-anchor="middle">planning &amp; routing</text>
           <g font-size="12.5" fill="#e9eff8" text-anchor="middle">
-            <rect x="430" y="34" width="176" height="46" rx="9" fill="#16233b" stroke="#22304c"/><text x="518" y="62">Text-to-SQL</text>
-            <rect x="430" y="104" width="176" height="46" rx="9" fill="#16233b" stroke="#22304c"/><text x="518" y="132">Deep Insights</text>
-            <rect x="430" y="174" width="176" height="46" rx="9" fill="#16233b" stroke="#22304c"/><text x="518" y="202">Agentic App Gen</text>
-            <rect x="430" y="244" width="176" height="46" rx="9" fill="#16233b" stroke="#22304c"/><text x="518" y="272">Voice Agent</text>
+            <rect x="430" y="34" width="176" height="46" rx="9" fill="#16233b" stroke="#22304c" data-tip="Turns a question into an analytic spec, then SQL — with clarification, execution-retry, and caching."/><text x="518" y="62">Text-to-SQL</text>
+            <rect x="430" y="104" width="176" height="46" rx="9" fill="#16233b" stroke="#22304c" data-tip="Auto-generates multi-step analysis: intent → generation → validation → summary → follow-up."/><text x="518" y="132">Deep Insights</text>
+            <rect x="430" y="174" width="176" height="46" rx="9" fill="#16233b" stroke="#22304c" data-tip="Generates editable React/TSX data apps from a prompt via a build → validate → fix loop."/><text x="518" y="202">Agentic App Gen</text>
+            <rect x="430" y="244" width="176" height="46" rx="9" fill="#16233b" stroke="#22304c" data-tip="Real-time spoken conversation over WebRTC / WebSockets (Deepgram, ElevenLabs, OpenAI Realtime)."/><text x="518" y="272">Voice Agent</text>
           </g>
           <g stroke="#5b9dff" stroke-width="1.4" fill="none" opacity="0.7" marker-end="url(#ah)">
             <path class="flowline" d="M350 165 C 395 120, 400 90, 428 57"/><path class="flowline" d="M350 175 C 395 150, 400 135, 428 127"/>
@@ -83,7 +101,7 @@
             <path class="flowline" d="M606 57 C 650 90, 655 120, 674 150"/><path class="flowline" d="M606 127 C 645 140, 650 150, 674 158"/>
             <path class="flowline" d="M606 197 C 645 185, 650 175, 674 168"/><path class="flowline" d="M606 267 C 650 235, 655 200, 674 176"/>
           </g>
-          <rect x="16" y="318" width="810" height="42" rx="10" fill="#111c33" stroke="#22304c"/>
+          <rect x="16" y="318" width="810" height="42" rx="10" fill="#111c33" stroke="#22304c" data-tip="Shared foundation: a provider-agnostic LLM fleet, a RAG vector store, and LangSmith tracing used by every agent."/>
           <text x="421" y="344" fill="#93a4c2" font-size="12.5" text-anchor="middle">Multi-LLM fleet (Claude · OpenAI · Gemini · Bedrock)  ·  Vector store / RAG (Chroma · Qdrant)  ·  LangSmith tracing</text>
         </svg>
         <div class="cap">An orchestrator routes a question to specialised agents, all sharing a provider-agnostic LLM fleet, a RAG vector store, and tracing.</div>
@@ -112,7 +130,7 @@
   </section>
 
   <!-- ===== 2. Apps ===== -->
-  <section class="case" id="apps">
+  <section class="case" id="apps" data-tags="ai">
     <div class="wrap reveal">
       <div class="kicker">Tellius · Generative AI</div>
       <h2>Agentic App Generation</h2>
@@ -171,7 +189,7 @@
   </section>
 
   <!-- ===== 3. Text-to-SQL ===== -->
-  <section class="case" id="texttosql">
+  <section class="case" id="texttosql" data-tags="ai search">
     <div class="wrap reveal">
       <div class="kicker">Tellius · Generative AI</div>
       <h2>Text-to-SQL &amp; Semantic Query</h2>
@@ -226,7 +244,7 @@
   </section>
 
   <!-- ===== 4. Voice ===== -->
-  <section class="case" id="voice">
+  <section class="case" id="voice" data-tags="ai">
     <div class="wrap reveal">
       <div class="kicker">Tellius · Generative AI</div>
       <h2>Real-time Voice AI</h2>
@@ -251,7 +269,7 @@
   </section>
 
   <!-- ===== 5. Multi-LLM ===== -->
-  <section class="case" id="multillm">
+  <section class="case" id="multillm" data-tags="ai">
     <div class="wrap reveal">
       <div class="kicker">Tellius · Platform</div>
       <h2>Multi-LLM / Provider Abstraction</h2>
@@ -277,7 +295,7 @@
   </section>
 
   <!-- ===== 6. Search ===== -->
-  <section class="case" id="search">
+  <section class="case" id="search" data-tags="search">
     <div class="wrap reveal">
       <div class="kicker">Practo · Search &amp; ML</div>
       <h2>Search &amp; Ranking Platform</h2>
@@ -325,7 +343,7 @@
   </section>
 
   <!-- ===== 7. ABDM ===== -->
-  <section class="case" id="abdm">
+  <section class="case" id="abdm" data-tags="healthtech">
     <div class="wrap reveal">
       <div class="kicker">Practo · Health-tech Platform</div>
       <h2>ABDM National Health-Data Integration</h2>
@@ -372,7 +390,7 @@
   </section>
 
   <!-- ===== 8. Surgeries ===== -->
-  <section class="case" id="surgeries">
+  <section class="case" id="surgeries" data-tags="healthtech">
     <div class="wrap reveal">
       <div class="kicker">Practo · New Vertical</div>
       <h2>Secondary-Care Surgeries Backend</h2>
@@ -399,7 +417,7 @@
   </section>
 
   <!-- ===== 9. Platform ===== -->
-  <section class="case" id="platform">
+  <section class="case" id="platform" data-tags="infra">
     <div class="wrap reveal">
       <div class="kicker">Practo · Platform &amp; Infra</div>
       <h2>Platform, Infra &amp; Telemedicine</h2>

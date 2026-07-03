@@ -34,6 +34,78 @@
   nums.forEach(function (e) { io.observe(e); });
 })();
 
+// ===== scroll progress bar =====
+(function () {
+  var bar = document.createElement('div');
+  bar.className = 'scroll-progress';
+  document.body.appendChild(bar);
+  var update = function () {
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+  };
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+})();
+
+// ===== active-section nav (scrollspy) =====
+(function () {
+  var links = [].slice.call(document.querySelectorAll('.nav nav a[href^="#"]'));
+  if (!links.length) return;
+  var map = {};
+  links.forEach(function (a) { var id = a.getAttribute('href').slice(1); if (id) map[id] = a; });
+  var sections = Object.keys(map).map(function (id) { return document.getElementById(id); }).filter(Boolean);
+  if (!('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (en.isIntersecting) {
+        links.forEach(function (l) { l.classList.remove('active'); });
+        if (map[en.target.id]) map[en.target.id].classList.add('active');
+      }
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  sections.forEach(function (s) { io.observe(s); });
+})();
+
+// ===== hover tooltips (incl. SVG diagram nodes) =====
+(function () {
+  var tip = document.createElement('div');
+  tip.className = 'tip'; document.body.appendChild(tip);
+  var show = function (e) {
+    var t = e.currentTarget.getAttribute('data-tip'); if (!t) return;
+    tip.textContent = t; tip.classList.add('on');
+    move(e);
+  };
+  var move = function (e) {
+    var x = (e.clientX || 0), y = (e.clientY || 0);
+    tip.style.left = Math.min(x + 14, window.innerWidth - tip.offsetWidth - 12) + 'px';
+    tip.style.top = (y + 16) + 'px';
+  };
+  var hide = function () { tip.classList.remove('on'); };
+  document.querySelectorAll('[data-tip]').forEach(function (el) {
+    el.addEventListener('mouseenter', show);
+    el.addEventListener('mousemove', move);
+    el.addEventListener('mouseleave', hide);
+  });
+})();
+
+// ===== filterable work =====
+(function () {
+  var bar = document.querySelector('[data-filterbar]');
+  if (!bar) return;
+  var cases = [].slice.call(document.querySelectorAll('.case[data-tags]'));
+  bar.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-filter]'); if (!btn) return;
+    var f = btn.getAttribute('data-filter');
+    bar.querySelectorAll('[data-filter]').forEach(function (b) { b.classList.toggle('on', b === btn); });
+    cases.forEach(function (c) {
+      var show = f === 'all' || (c.getAttribute('data-tags') || '').split(' ').indexOf(f) > -1;
+      c.style.display = show ? '' : 'none';
+    });
+  });
+})();
+
 // ===== theme toggle =====
 (function () {
   var btn = document.getElementById('themeToggle');
