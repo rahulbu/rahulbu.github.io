@@ -3,8 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Notes — Rahul B U</title>
-  <meta name="description" content="Short engineering notes by Rahul B U on building Gen AI, search, and reliable systems.">
+  <title>Knowledge Hub — Rahul B U</title>
+  <meta name="description" content="Notes & articles by Rahul B U on building Gen AI, search, ranking, and reliable systems.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://rahulbu.github.io/learnings.html">
+  <meta property="og:title" content="Knowledge Hub — Rahul B U">
+  <meta property="og:description" content="Notes & articles on building Gen AI on top of real backend and search systems.">
+  <meta property="og:image" content="https://rahulbu.github.io/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://rahulbu.github.io/og.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -29,33 +36,91 @@
     </div>
   </div>
 
-  <section style="border-top:0;">
+  <header class="hero" style="padding:66px 0 40px;">
+    <div class="blob b1"></div>
     <div class="wrap">
-      <a class="back" href="index.html">← Back</a>
-      <h2>Notes</h2>
-      <p class="section-lead">Short takes from building Gen AI on top of real systems.</p>
+      <a class="back" href="index.html">← Back home</a>
+      <div class="eyebrow">Knowledge Hub</div>
+      <h1 style="font-size:2.6rem;">Notes &amp; <span class="accent">Articles</span></h1>
+      <p class="intro">Short, opinionated pieces from building Gen AI on top of real backend and search systems — the patterns that hold up in production.</p>
+      <div class="filterbar" data-filterbar style="margin-top:22px;">
+        <span style="color:var(--muted); font-size:.85rem; align-self:center; margin-right:4px;">Filter:</span>
+        <button data-filter="all" class="on">All</button>
+        <button data-filter="genai">Generative AI</button>
+        <button data-filter="search">Search &amp; ML</button>
+        <button data-filter="infra">Infra</button>
+        <button data-filter="craft">Craft</button>
+      </div>
+    </div>
+  </header>
 
-      <div class="note">
+  <section style="border-top:0; padding-top:34px;">
+    <div class="wrap">
+
+      <article class="article reveal" data-tags="genai craft">
         <h3>The model is the easy part</h3>
-        <p>Everyone obsesses over which LLM to use. But whether an AI feature actually ships comes down to the unglamorous engineering around it — clean data, retrieval quality, latency, observability, and the judgment to know when <em>not</em> to reach for a model at all. The teams that win with Gen AI aren't chasing the newest model; they're the ones who can wrap a reliable system around it.</p>
-      </div>
+        <div class="ameta"><span>Jul 2026</span><span>· 2 min read</span><span class="tag">GenAI</span><span class="tag">Craft</span></div>
+        <p class="lead">Everyone obsesses over which LLM to use. In practice, the model is the part you can swap in an afternoon.</p>
+        <p>What actually decides whether an AI feature ships is the engineering around it: clean data, retrieval quality, latency, observability, cost, and the judgment to know when not to reach for a model at all. I once cut a Gen AI feature's query latency by ~30% — not by changing the model, but by fixing context handling and adding a caching layer.</p>
+        <p>The teams that win with Gen AI aren't the ones chasing the newest model. They're the ones who can wrap a reliable system around whichever model they're holding. Treat the model as a commodity and put your effort into everything else.</p>
+      </article>
 
-      <div class="note">
+      <article class="article reveal" data-tags="genai search">
         <h3>RAG is a search problem</h3>
-        <p>Most "our AI gives wrong answers" bugs aren't model bugs — they're retrieval bugs. If you're building RAG, the model is maybe 20% of the quality; the rest is putting the right context in front of it: chunking that respects meaning, hybrid keyword + vector search, and re-ranking before anything reaches the model. Years of Elasticsearch turned out to be more useful here than anything AI-specific.</p>
-      </div>
+        <div class="ameta"><span>Jul 2026</span><span>· 3 min read</span><span class="tag">RAG</span><span class="tag">Search</span></div>
+        <p class="lead">Most "our AI gives wrong answers" bugs aren't model bugs. They're retrieval bugs.</p>
+        <p>If you're building RAG, the model is maybe 20% of the quality. The other 80% is whether you put the right context in front of it: chunking that respects meaning rather than character count, hybrid keyword + vector search (pure vector misses exact matches constantly), and re-ranking the top results before they ever reach the model.</p>
+        <p>The most useful debugging habit is boring: when an answer is wrong, look at what was actually retrieved. The failure is almost always visible right there. My years on Elasticsearch turned out to be more useful for RAG than anything AI-specific — retrieval is a ranking problem, and we've been solving ranking for decades.</p>
+        <p>Before you swap models, read your retrieved chunks.</p>
+      </article>
 
-      <div class="note">
+      <article class="article reveal" data-tags="genai craft">
         <h3>When not to use an LLM</h3>
-        <p>The most senior move in AI engineering is often saying "we don't need an LLM for this." Plenty of "AI features" are really a regex, a SQL query, or a small rules function — faster, cheaper, deterministic, and debuggable at 2am. LLMs are great for genuinely fuzzy, language-shaped problems; they're an expensive choice for problems that have a correct answer you can compute. Reliability is a feature.</p>
-      </div>
+        <div class="ameta"><span>Jun 2026</span><span>· 2 min read</span><span class="tag">GenAI</span><span class="tag">Judgment</span></div>
+        <p class="lead">The most senior move in AI engineering right now is often saying "we don't need an LLM for this."</p>
+        <p>A lot of "AI features" I see could be a regex, a SQL query, a lookup table, or a 20-line rules function — and they'd be faster, cheaper, deterministic, and debuggable at 2am. LLMs are incredible for genuinely fuzzy, language-shaped problems. They're a terrible, expensive choice for problems that have a correct answer you can compute.</p>
+        <p>The skill isn't "can you call an LLM" — everyone can now. The skill is knowing the boundary, and defending it when someone wants to sprinkle AI on something that didn't need it. Reliability is a feature. Boring is a feature.</p>
+      </article>
+
+      <article class="article reveal" data-tags="search ml">
+        <h3>From heuristic weights to learning-to-rank</h3>
+        <div class="ameta"><span>Jun 2026</span><span>· 3 min read</span><span class="tag">Search</span><span class="tag">ML</span></div>
+        <p class="lead">Every ranking system I've owned went through the same arc — and skipping steps is a trap.</p>
+        <p>You start with hand-tuned weights: fast to ship, easy to reason about, and impossible to maintain once you have a dozen competing signals. Next comes bucketisation — grouping results (by distance, availability, tier) so weights apply within sensible cohorts. Only then does ML learning-to-rank earn its place, once you actually have features and a training signal.</p>
+        <p>LTR isn't magic. It's disciplined feature engineering, a good label/eval signal, and an offline evaluation harness — the model itself is the small part. The hard, valuable work is the feature store and knowing whether a change actually improved relevance.</p>
+        <p>It's also the cleanest bridge into Gen AI: ranking retrieved context for an LLM is the exact same muscle you built ranking search results.</p>
+      </article>
+
+      <article class="article reveal" data-tags="genai">
+        <h3>Resolve the question before you write the SQL</h3>
+        <div class="ameta"><span>May 2026</span><span>· 3 min read</span><span class="tag">Text-to-SQL</span><span class="tag">GenAI</span></div>
+        <p class="lead">Text-to-SQL fails most often when you jump straight from English to SQL.</p>
+        <p>Insert a semantic layer first: turn the question into an explicit analytic spec — aggregations, filters, comparisons, group-by, time resolution — before any SQL is generated. Three things get better immediately. You can detect and clarify ambiguity while it's still cheap. You can retrieve learned examples for similar past questions (query-seed RAG). And SQL generation becomes a smaller, more constrained, more reliable step.</p>
+        <p>Then make execution robust: retry on failure, cache responses, and guard the joins. The model writes far better SQL when the question reaching it is already unambiguous.</p>
+      </article>
+
+      <article class="article reveal" data-tags="genai craft">
+        <h3>Cheap AI: context discipline, diff edits, and caching</h3>
+        <div class="ameta"><span>May 2026</span><span>· 2 min read</span><span class="tag">GenAI</span><span class="tag">Cost</span></div>
+        <p class="lead">Token cost sneaks up on you. Treat it as a design constraint, not an afterthought.</p>
+        <p>Three levers have done the most for me. First, response caching — never pay twice for the same call. Second, diff- and patch-based edits: when a user tweaks a generated artifact, send and regenerate only the delta, not the whole thing. Third, progressive disclosure — read-before-write so an edit only ever loads the section it touches.</p>
+        <p>None of these change what the user sees. They change what it costs to serve, which is the difference between a demo and a product.</p>
+      </article>
+
+      <article class="article reveal" data-tags="infra">
+        <h3>The boring backend behind voice AI</h3>
+        <div class="ameta"><span>Apr 2026</span><span>· 2 min read</span><span class="tag">Infra</span><span class="tag">Voice</span></div>
+        <p class="lead">A real-time voice agent demos in minutes and survives real traffic only with the right plumbing.</p>
+        <p>The moment you go real-time, you're in WebSocket/WebRTC territory — and the default web-server worker can't do WebSockets. Moving to a gevent-based worker model and tuning concurrency for hundreds of simultaneous sockets is what turns the demo into something that holds up. Add hot-syncing of tools, prompts, and ASR keywords per session, and trace every tool call so you can actually debug a live conversation.</p>
+        <p>The AI is the demo. The socket handling is the product.</p>
+      </article>
 
     </div>
   </section>
 
   <footer>
     <div class="wrap">
-      <div>© Rahul B U · 2026</div>
+      <div>© Rahul B U · 2026 &nbsp;·&nbsp; <a href="index.html">Home</a> &nbsp;·&nbsp; <a href="work.html">Work</a></div>
       <div class="social">
         <a href="https://www.linkedin.com/in/rahulbu/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1-.02-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.3-.02-2.96-1.8-2.96-1.8 0-2.08 1.4-2.08 2.86V21H9z"/></svg></a>
         <a href="https://github.com/rahulbu" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49v-1.7c-2.78.62-3.37-1.22-3.37-1.22-.46-1.18-1.11-1.5-1.11-1.5-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.9 1.57 2.34 1.12 2.91.86.09-.66.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9v2.82c0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2z"/></svg></a>
@@ -63,5 +128,6 @@
     </div>
   </footer>
 
+  <script src="app.js"></script>
 </body>
 </html>

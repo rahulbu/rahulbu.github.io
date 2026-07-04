@@ -94,7 +94,7 @@
 (function () {
   var bar = document.querySelector('[data-filterbar]');
   if (!bar) return;
-  var cases = [].slice.call(document.querySelectorAll('.case[data-tags]'));
+  var cases = [].slice.call(document.querySelectorAll('[data-tags]'));
   bar.addEventListener('click', function (e) {
     var btn = e.target.closest('[data-filter]'); if (!btn) return;
     var f = btn.getAttribute('data-filter');
