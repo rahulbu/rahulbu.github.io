@@ -91,7 +91,7 @@
             <rect x="430" y="34" width="176" height="46" rx="9" fill="#16233b" stroke="#22304c" data-tip="Turns a question into an analytic spec, then SQL — with clarification, execution-retry, and caching."/><text x="518" y="62">Text-to-SQL</text>
             <rect x="430" y="104" width="176" height="46" rx="9" fill="#16233b" stroke="#22304c" data-tip="Auto-generates multi-step analysis: intent → generation → validation → summary → follow-up."/><text x="518" y="132">Deep Insights</text>
             <rect x="430" y="174" width="176" height="46" rx="9" fill="#16233b" stroke="#22304c" data-tip="Generates editable React/TSX data apps from a prompt via a build → validate → fix loop."/><text x="518" y="202">Agentic App Gen</text>
-            <rect x="430" y="244" width="176" height="46" rx="9" fill="#16233b" stroke="#22304c" data-tip="Real-time spoken conversation over WebRTC / WebSockets (Deepgram, ElevenLabs, OpenAI Realtime)."/><text x="518" y="272">Voice Agent</text>
+            <rect x="430" y="244" width="176" height="46" rx="9" fill="#16233b" stroke="#22304c" data-tip="Real-time spoken conversation with the assistant, built on the OpenAI Realtime API."/><text x="518" y="272">Voice Agent</text>
           </g>
           <g stroke="#5b9dff" stroke-width="1.4" fill="none" opacity="0.7" marker-end="url(#ah)">
             <path class="flowline" d="M350 165 C 395 120, 400 90, 428 57"/><path class="flowline" d="M350 175 C 395 150, 400 135, 428 127"/>
@@ -254,19 +254,19 @@
       <p>Real-time, spoken conversation with the analytics assistant — the kind of feature that demos in minutes but only survives real traffic with the right backend plumbing.</p>
       <div class="grid">
         <div class="block"><h4>The agents</h4><ul>
-          <li>Integrated multiple providers behind one pattern: a <b>Deepgram</b> voice agent (with a switch to its low-latency model), an <b>ElevenLabs</b> agent over <b>WebRTC</b>, and <b>OpenAI Realtime</b>.</li>
-          <li>Tools, prompts, and ASR keywords <b>hot-sync</b> on startup and per session — config resolves from middleware with an environment fallback.</li>
+          <li>Wrote the original <b>OpenAI Realtime API</b> layer (Nov 2025) — the first real-time voice path into the assistant.</li>
+          <li>Built the early voice-mode work that showed spoken analysis working inside the assistant.</li>
         </ul></div>
-        <div class="block"><h4>The infra detail that mattered</h4><ul>
-          <li>WebSockets don't work on the default web-server worker — I moved the service to a <b>gevent</b> worker model.</li>
-          <li>Tuned concurrency to <b>~500 concurrent voice sockets</b>, and improved audio playback smoothness.</li>
+        <div class="block"><h4>Shipping it</h4><ul>
+          <li>Voice shipped in production releases, switchable per tenant through configuration.</li>
+          <li>Reviewed and merged the team's follow-on provider integrations.</li>
         </ul></div>
         <div class="block"><h4>Observability</h4><ul>
           <li><b>LangSmith tracing</b> across voice tool runs to debug real conversations.</li>
           <li>Fixed voice-mode context handling so spoken sessions carry the same reasoning as text.</li>
         </ul></div>
       </div>
-      <div class="taglist"><span class="t">WebRTC</span><span class="t">WebSockets</span><span class="t">Deepgram</span><span class="t">ElevenLabs</span><span class="t">OpenAI Realtime</span><span class="t">gevent</span><span class="t">LangSmith</span></div>
+      <div class="taglist"><span class="t">OpenAI Realtime</span><span class="t">WebSockets</span><span class="t">LangSmith</span></div>
     </div>
   </section>
 
