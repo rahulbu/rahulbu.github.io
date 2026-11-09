@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rental Yield Calculator — Rahul B U</title>
+<meta name="description" content="Rental yield calculator for Indian property: gross and net yield, monthly cash flow with a home loan, payback, after-tax return and how it compares with investing the same money.">
+<link rel="canonical" href="https://rahulbu.github.io/rental-yield/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://rahulbu.github.io/rental-yield/">
+<meta property="og:title" content="Rental Yield Calculator">
+<meta property="og:description" content="Gross and net yield, cash flow with a loan, payback and after-tax return on a rental property in India.">
+<meta property="og:image" content="https://rahulbu.github.io/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<style>
+/* Layout: inputs on the left, results on the right (stacked on phones with a sticky summary bar), then chart, sensitivity, year table, method. */
+:root {
+  --bg: #F2F4F1; --surface: #FFFFFF; --ink: #1B2320; --muted: #5D6A65; --line: #DCE2DE;
+  --accent: #2C6A53; --accent-soft: #E1EEE8; --alt: #50608A; --good: #2C6A53; --bad: #A23B2A;
+  --font-display: "Young Serif", Georgia, "Times New Roman", serif;
+  --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111513; --surface: #181E1B; --ink: #E5ECE8; --muted: #9AA8A2; --line: #2A332F;
+    --accent: #6DC09F; --accent-soft: #1E3029; --alt: #9FB2DC; --good: #6DC09F; --bad: #F08A76; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111513; --surface: #181E1B; --ink: #E5ECE8; --muted: #9AA8A2; --line: #2A332F;
+  --accent: #6DC09F; --accent-soft: #1E3029; --alt: #9FB2DC; --good: #6DC09F; --bad: #F08A76; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 15px; line-height: 1.5; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-block: 24px 56px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: flex; flex-direction: column; gap: 24px; }
+a { color: var(--alt); }
+h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(28px, 4.4vw, 40px); line-height: 1.1; margin: 0; text-wrap: balance; }
+h2 { font-family: var(--font-display); font-weight: 400; font-size: 21px; margin: 0; text-wrap: balance; }
+.eyebrow { font-size: 11.5px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); }
+.lede { color: var(--muted); max-width: 70ch; margin: 8px 0 0; }
+.num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.top { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: 13.5px; }
+.top a { color: var(--muted); text-decoration: none; } .top a:hover { color: var(--ink); }
+header { display: flex; flex-direction: column; gap: 6px; }
+
+.layout { display: grid; grid-template-columns: 380px minmax(0, 1fr); gap: 20px; align-items: start; }
+.inputs { display: flex; flex-direction: column; gap: 14px; }
+.results { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+
+fieldset { margin: 0; border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px 16px; background: var(--surface); display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+legend { padding: 0 6px; font-weight: 600; font-size: 14px; }
+.row { display: flex; flex-direction: column; gap: 4px; }
+.row .lab { display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 13.5px; }
+.row small { color: var(--muted); font-size: 12px; line-height: 1.4; }
+.field { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); padding: 0 8px; gap: 4px; font-family: var(--font-mono); font-size: 13px; color: var(--muted); flex-shrink: 0; }
+.field input { width: 9ch; border: 0; background: transparent; color: var(--ink); font: inherit; padding: 5px 0; text-align: right; -moz-appearance: textfield; }
+.field input::-webkit-outer-spin-button, .field input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.field:focus-within { outline: 2px solid var(--alt); outline-offset: 1px; }
+input[type=range] { width: 100%; accent-color: var(--accent); margin: 2px 0 0; }
+input[type=range]:focus-visible, button:focus-visible { outline: 2px solid var(--alt); outline-offset: 2px; }
+.check { display: flex; gap: 8px; align-items: center; font-size: 13.5px; }
+.check input { accent-color: var(--accent); width: 16px; height: 16px; margin: 0; }
+.btns { display: flex; gap: 8px; flex-wrap: wrap; }
+.btn { font: inherit; font-size: 13px; padding: 6px 12px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.stats.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.stat { padding: 12px 14px; border-radius: 8px; background: var(--bg); min-width: 0; }
+.stat.hero { background: var(--accent-soft); }
+.stat .k { font-size: 12.5px; color: var(--muted); }
+.stat .v { font-family: var(--font-display); font-size: 26px; line-height: 1.2; overflow-wrap: anywhere; }
+.stat.hero .v { color: var(--accent); }
+.stat .s { font-size: 12.5px; color: var(--muted); }
+.verdict { font-size: 14px; padding: 10px 12px; border-radius: 8px; background: var(--bg); }
+
+table.cash { width: 100%; border-collapse: collapse; font-size: 14px; }
+table.cash th { font-size: 12px; font-weight: 600; color: var(--muted); text-align: right; padding: 0 0 6px 10px; }
+table.cash th:first-child { text-align: left; padding-left: 0; }
+table.cash td { padding: 5px 0 5px 10px; border-bottom: 1px solid var(--line); text-align: right; font-family: var(--font-mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+table.cash td:first-child { text-align: left; padding-left: 0; font-family: var(--font-body); white-space: normal; }
+table.cash tr.sub td { font-weight: 600; }
+table.cash tr.total td { font-weight: 600; border-bottom: none; padding-top: 8px; }
+.pos { color: var(--good); } .neg { color: var(--bad); }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+.legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+.legend span::before { content: ""; display: inline-block; width: 14px; height: 3px; border-radius: 2px; margin-right: 6px; vertical-align: 3px; background: currentColor; }
+.head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.scroll { overflow-x: auto; }
+svg.chart { width: 100%; min-width: 520px; height: auto; display: block; }
+.note { font-size: 13.5px; color: var(--muted); margin: 0; max-width: 80ch; }
+
+.grid { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.grid th, .grid td { padding: 6px 8px; text-align: right; border-bottom: 1px solid var(--line); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.grid th:first-child, .grid td:first-child { text-align: left; }
+.grid th { font-weight: 600; color: var(--muted); font-size: 12.5px; }
+.grid td { font-family: var(--font-mono); }
+.grid tr.cur td { font-weight: 600; background: var(--bg); }
+details summary { cursor: pointer; font-weight: 600; }
+
+.fine { font-size: 13px; color: var(--muted); display: flex; flex-direction: column; gap: 6px; }
+.fine ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; }
+
+.mini { display: none; }
+@media (max-width: 980px) {
+  .layout { grid-template-columns: 1fr; }
+  .mini { display: flex; position: sticky; top: 0; z-index: 5; justify-content: space-around; gap: 8px; background: var(--surface); border-bottom: 1px solid var(--line); padding: 8px max(16px, env(safe-area-inset-left, 0px)); padding-top: max(8px, env(safe-area-inset-top, 0px)); font-size: 12px; color: var(--muted); }
+  .mini b { display: block; font-family: var(--font-mono); font-size: 14px; color: var(--ink); font-weight: 500; }
+  .mini div { text-align: center; }
+}
+@media (max-width: 760px) { .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } .stats.three { grid-template-columns: 1fr; } .two { grid-template-columns: 1fr; } }
+@media (max-width: 360px) { .stats { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="mini" aria-hidden="true">
+  <div>Gross<b id="m-gross">–</b></div>
+  <div>Net<b id="m-net">–</b></div>
+  <div>Cash flow<b id="m-cf">–</b></div>
+  <div>Return<b id="m-irr">–</b></div>
+</div>
+<div class="wrap">
+  <div class="top"><a href="../">← rahulbu.github.io</a><span class="eyebrow">Rates as of Nov 2026</span></div>
+  <header>
+    <div class="eyebrow">Buy to let · India</div>
+    <h1>Rental yield calculator</h1>
+    <p class="lede">What a flat or house really earns as a rental: the headline yield, what is left after empty months, maintenance and income tax, the monthly top-up or surplus with a home loan, and whether the whole thing beats putting the same money in a fund. Type a number or drag a slider; everything recalculates.</p>
+  </header>
+
+  <div class="layout">
+    <section class="inputs" id="inputs" aria-label="Inputs"></section>
+
+    <section class="results" aria-live="polite">
+      <div class="card">
+        <div class="stats">
+          <div class="stat hero"><div class="k">Gross yield</div><div class="v" id="r-gross">–</div><div class="s">A year’s rent ÷ price</div></div>
+          <div class="stat hero"><div class="k">Net yield</div><div class="v" id="r-net">–</div><div class="s" id="r-net-s">–</div></div>
+          <div class="stat"><div class="k">Each month, with the loan</div><div class="v num" style="font-size:22px" id="r-cf">–</div><div class="s" id="r-cf-s">–</div></div>
+          <div class="stat"><div class="k">Pays for itself in</div><div class="v" id="r-pay">–</div><div class="s">From rent after costs and tax, all cash</div></div>
+        </div>
+        <div class="stats three">
+          <div class="stat"><div class="k" id="r-irr-k">Return per year</div><div class="v" id="r-irr">–</div><div class="s">All cash, including the sale</div></div>
+          <div class="stat"><div class="k">Return on your own cash</div><div class="v" id="r-irrl">–</div><div class="s" id="r-irrl-s">With the loan</div></div>
+          <div class="stat"><div class="k">Rent to cover the EMI</div><div class="v num" style="font-size:22px" id="r-ber">–</div><div class="s" id="r-ber-s">–</div></div>
+        </div>
+        <div class="verdict" id="r-verdict"></div>
+      </div>
+
+      <div class="two">
+        <div class="card">
+          <h2>What you put in</h2>
+          <table class="cash"><tbody id="t-cost"></tbody></table>
+        </div>
+        <div class="card">
+          <h2>Year one</h2>
+          <table class="cash"><thead><tr><th></th><th>All cash</th><th>With loan</th></tr></thead><tbody id="t-year1"></tbody></table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="head"><h2>Your money in the property vs a fund</h2>
+          <div class="legend"><span style="color:var(--accent)">Property, if sold that year</span><span style="color:var(--alt)">Same cash in a fund</span></div></div>
+        <div class="scroll"><svg class="chart" id="chart" viewBox="0 0 720 320" role="img" aria-label="Wealth from the property against investing the same cash, year by year"></svg></div>
+        <p class="note">Both start with the cash you put in. Any monthly top-up goes into the fund line too; any surplus rent is invested at the same return on the property side. Each point is after loan repayment, selling costs and tax on gains.</p>
+      </div>
+
+      <div class="card">
+        <h2>What the answer hangs on</h2>
+        <p class="note">Indian rental yields are low, so most of the return comes from the price going up. Here is the same property at different rates of appreciation, all else as set.</p>
+        <div class="scroll"><table class="grid"><thead><tr><th>Value grows by</th><th>Return, all cash</th><th>Return on your cash</th><th id="s-gap-h">Ahead of the fund</th></tr></thead><tbody id="sens"></tbody></table></div>
+      </div>
+
+      <div class="card">
+        <details>
+          <summary>Year by year</summary>
+          <div class="scroll" style="margin-top:12px"><table class="grid"><thead><tr><th>Year</th><th>Rent received</th><th>Running costs</th><th>Income tax</th><th>EMI</th><th>Cash flow</th><th>Net yield on cost</th><th>Loan left</th></tr></thead><tbody id="years"></tbody></table></div>
+        </details>
+      </div>
+    </section>
+  </div>
+
+  <section class="fine">
+    <div class="eyebrow">How it is worked out</div>
+    <ul>
+      <li><b>Gross yield</b> is a year’s full rent divided by the price. <b>Net yield</b> is the rent actually received (after empty months and agent fees) minus maintenance, property tax and repairs, divided by everything you paid: price, stamp duty and registration, interiors and other one-off costs. It is before income tax and ignores the loan.</li>
+      <li>Rent is taxed at your rate on 70% of the rent received less property tax (the 30% standard deduction). With a loan, the year’s interest is deducted too. Under the new tax regime a loss on a let-out home can’t be set off against your salary, so a loss counts as zero tax in that year and isn’t carried forward.</li>
+      <li>The loan is on the price only; stamp duty, interiors and one-off costs are paid in cash. EMIs are monthly at a fixed rate.</li>
+      <li>Rent rises at the rent rate each year; maintenance, property tax and repairs rise at the cost rate.</li>
+      <li>On sale, selling costs come off the price, and 12.5% tax is charged on the gain over price plus stamp duty and one-off costs (no indexation). Interiors are treated as worn out and worth nothing.</li>
+      <li>The fund grows at the return you set, with 12.5% tax on its gain when cashed out if the sale-tax switch is on. Debt funds and FDs are taxed at your slab instead, so use a lower return for those.</li>
+      <li>“Return” is the internal rate of return over the holding period, counting every year’s cash flow and the sale.</li>
+      <li>Planning numbers, not financial advice. Check rents and prices for the exact building before you decide.</li>
+    </ul>
+  </section>
+</div>
+
+<script>
+const LAKH = 1e5, CG = 0.125, HORIZON = 40;
+const DEFAULTS = {
+  price: 80, stamp: 7.6, interiors: 5, other: 2,
+  rent: 25000, rentGrowth: 5, vac: 1, agent: 0.5,
+  maint: 4000, ptax: 8000, repairs: 15000, cpi: 5,
+  ltv: 75, rate: 7.75, tenure: 20,
+  slab: 31.2, hold: 10, app: 5, sellCost: 1, sellTax: 1, ret: 9
+};
+const FIELDS = [
+  { group: 'The property', items: [
+    ['price', 'Purchase price', 10, 500, 1, '₹', 'L'],
+    ['stamp', 'Stamp duty and registration', 0, 10, 0.1, '', '%', 'Karnataka: about 5.6% stamp duty with cess, plus 2% registration'],
+    ['interiors', 'Interiors and furnishing', 0, 50, 0.5, '₹', 'L', 'Kitchen, wardrobes, lights and anything you leave for the tenant'],
+    ['other', 'Other one-off costs', 0, 20, 0.5, '₹', 'L', 'Brokerage, legal fees, society corpus, GST on an under-construction home'],
+  ]},
+  { group: 'Rent', items: [
+    ['rent', 'Monthly rent', 1000, 300000, 500, '₹', '/mo'],
+    ['rentGrowth', 'Rent rises by', 0, 10, 0.5, '', '%/yr', 'Bangalore leases usually step up 5% a year'],
+    ['vac', 'Empty between tenants', 0, 4, 0.5, '', 'mo/yr'],
+    ['agent', 'Agent fees', 0, 2, 0.25, '', 'mo/yr', 'In months of rent a year. One month’s rent per new tenant every two years is 0.5'],
+  ]},
+  { group: 'Running costs you pay', items: [
+    ['maint', 'Society maintenance', 0, 30000, 250, '₹', '/mo'],
+    ['ptax', 'Property tax', 0, 100000, 500, '₹', '/yr'],
+    ['repairs', 'Repairs and repainting, averaged', 0, 200000, 1000, '₹', '/yr'],
+    ['cpi', 'Costs rise by', 0, 10, 0.25, '', '%/yr'],
+  ]},
+  { group: 'Home loan', items: [
+    ['ltv', 'Share of the price borrowed', 0, 90, 5, '', '%', 'Banks lend up to 75–80% of the agreement value. Set 0 for an all-cash purchase'],
+    ['rate', 'Interest rate', 5, 12, 0.05, '', '%'],
+    ['tenure', 'Tenure', 1, 30, 1, '', 'yrs'],
+  ]},
+  { group: 'Tax, sale and the alternative', items: [
+    ['slab', 'Your income-tax rate', 0, 40, 0.1, '', '%', 'Marginal rate with cess: the 30% slab is 31.2%'],
+    ['hold', 'Hold for', 1, 30, 1, '', 'yrs'],
+    ['app', 'Property value grows by', 0, 12, 0.5, '', '%/yr'],
+    ['sellCost', 'Selling costs', 0, 3, 0.25, '', '%', 'Brokerage when you sell'],
+    ['sellTax', 'Pay 12.5% tax on gains when you sell', 0, 1, 1, '', 'bool'],
+    ['ret', 'Your money would otherwise earn', 3, 15, 0.5, '', '%/yr', 'Before tax. Equity funds 10–12% over the long run, debt funds 6–7%'],
+  ]},
+];
+
+// ── state: defaults, overridden by the URL hash so a scenario can be shared ──
+let S = Object.assign({}, DEFAULTS);
+(function readHash() {
+  const h = location.hash.slice(1);
+  if (!h) return;
+  for (const part of h.split('&')) {
+    const [k, v] = part.split('=');
+    if (k in DEFAULTS && v !== undefined && isFinite(+v)) S[k] = +v;
+  }
+})();
+function writeHash() {
+  const diff = Object.keys(DEFAULTS).filter(k => S[k] !== DEFAULTS[k]).map(k => k + '=' + S[k]).join('&');
+  history.replaceState(null, '', diff ? '#' + diff : location.pathname + location.search);
+}
+
+// ── formatting ──
+function inr(v) { return Math.round(v).toLocaleString('en-IN'); }
+function money(v) {
+  const a = Math.abs(v), s = v < 0 ? '−' : '';
+  if (a >= 1e7) return s + '₹' + (a / 1e7).toFixed(2) + ' Cr';
+  if (a >= LAKH) return s + '₹' + (a / LAKH).toFixed(2) + ' L';
+  return s + '₹' + inr(a);
+}
+function pct(v, d = 1) { return v === null || !isFinite(v) ? '—' : (v * 100).toFixed(d) + '%'; }
+function yrs(v) { if (v === null) return 'Over ' + HORIZON + ' yrs'; const r = Math.round(v * 2) / 2; return (r % 1 ? Math.floor(r) + '½' : r) + (r === 1 ? ' year' : ' years'); }
+function signed(v, f) { return (v >= 0 ? '+' : '−') + f(Math.abs(v)); }
+
+// ── the model ──
+function emiFor(L, i, n) { if (L <= 0) return 0; if (i === 0) return L / n; const p = Math.pow(1 + i, n); return L * i * p / (p - 1); }
+function irr(cf) {
+  const npv = r => cf.reduce((a, v, t) => a + v / Math.pow(1 + r, t), 0);
+  let lo = -0.99, hi = 1;
+  if (npv(lo) * npv(hi) > 0) return null;
+  for (let k = 0; k < 100; k++) { const m = (lo + hi) / 2; if (npv(m) > 0) lo = m; else hi = m; }
+  return (lo + hi) / 2;
+}
+function rentTax(rentIn, ptax, interest, rate) { return Math.max(0, 0.7 * Math.max(0, rentIn - ptax) - interest) * rate; }
+
+function calc(s) {
+  const P = s.price * LAKH, stamp = P * s.stamp / 100, F = s.interiors * LAKH, O = s.other * LAKH;
+  const cost = P + stamp + F + O, basis = P + stamp + O;
+  const L = P * s.ltv / 100, U = cost - L;
+  const i = s.rate / 1200, n = s.tenure * 12, emi = emiFor(L, i, n), tr = s.slab / 100;
+  const H = Math.round(s.hold), Y = Math.max(HORIZON, H), r = s.ret / 100, tx = s.sellTax ? CG : 0;
+
+  let bal = L, k = 0;
+  const years = [];
+  for (let y = 0; y < Y; y++) {
+    const g = Math.pow(1 + s.rentGrowth / 100, y), inf = Math.pow(1 + s.cpi / 100, y);
+    const rentIn = s.rent * g * Math.max(0, 12 - s.vac), agent = s.rent * g * s.agent;
+    const ptax = s.ptax * inf, upkeep = (s.maint * 12 + s.repairs) * inf;
+    let interest = 0, paid = 0;
+    for (let m = 0; m < 12; m++, k++) if (k < n && bal > 0) { const it = bal * i; interest += it; paid += emi; bal = Math.max(0, bal - (emi - it)); }
+    const netOp = rentIn - agent - ptax - upkeep;
+    const taxCash = rentTax(rentIn, ptax, 0, tr), taxLoan = rentTax(rentIn, ptax, interest, tr);
+    years.push({ rentIn, costs: agent + ptax + upkeep, netOp, taxCash, taxLoan, interest, emi: paid, cfCash: netOp - taxCash, cfLoan: netOp - taxLoan - paid, bal });
+  }
+
+  // what you'd walk away with if you sold at the end of year t (before repaying the loan)
+  const proceeds = t => {
+    const v = P * Math.pow(1 + s.app / 100, t), sc = v * s.sellCost / 100;
+    return v - sc - tx * Math.max(0, v - sc - basis);
+  };
+
+  // payback, all cash
+  let cum = 0, payback = null;
+  for (let y = 0; y < Y; y++) {
+    const cf = years[y].cfCash;
+    if (cf > 0 && cum + cf >= cost) { payback = y + (cost - cum) / cf; break; }
+    cum += cf;
+  }
+
+  // IRR over the holding period
+  const cfA = [-cost], cfL = [-U];
+  for (let y = 0; y < H; y++) { cfA.push(years[y].cfCash); cfL.push(years[y].cfLoan); }
+  cfA[H] += proceeds(H); cfL[H] += proceeds(H) - years[H - 1].bal;
+
+  // property (with loan) vs the same cash in a fund, sold at each year
+  let Po = 0, Co = 0, Pb = U, Cb = U, behind = -1;
+  const prop = [proceeds(0) - L], fund = [U];
+  for (let y = 0; y < H; y++) {
+    Po *= 1 + r; Pb *= 1 + r;
+    const cf = years[y].cfLoan;
+    if (cf >= 0) { Po += cf; Co += cf; } else { Pb -= cf; Cb -= cf; }
+    prop.push(proceeds(y + 1) - years[y].bal + Po - tx * Math.max(0, Po - Co));
+    fund.push(Pb - tx * Math.max(0, Pb - Cb));
+  }
+  for (let t = 0; t <= H; t++) if (prop[t] < fund[t]) behind = t;
+  const ahead = behind === -1 ? 0 : behind < H ? behind + 1 : null;
+
+  // fund's after-tax yearly return over the same period
+  const gF = Math.pow(1 + r, H), fundNet = tx ? Math.pow(1 + (gF - 1) * (1 - tx), 1 / H) - 1 : r;
+
+  // rent needed in year one for the rent to cover EMI, costs and tax
+  const y1 = years[0];
+  const flow1 = X => X * Math.max(0, 12 - s.vac) - X * s.agent - s.ptax - s.maint * 12 - s.repairs - rentTax(X * Math.max(0, 12 - s.vac), s.ptax, y1.interest, tr) - y1.emi;
+  let ber = null;
+  if (s.vac < 12 && flow1(1e7) > 0) { let lo = 0, hi = 1e7; for (let j = 0; j < 60; j++) { const m = (lo + hi) / 2; if (flow1(m) >= 0) hi = m; else lo = m; } ber = hi; }
+
+  return { P, stamp, F, O, cost, L, U, emi, years, H, payback, irrA: irr(cfA), irrL: irr(cfL), prop, fund, ahead, fundNet, ber,
+           gross: P > 0 ? s.rent * 12 / P : 0, net: cost > 0 ? y1.netOp / cost : 0, netTax: cost > 0 ? y1.cfCash / cost : 0 };
+}
+
+// ── inputs ──
+function buildInputs() {
+  const host = document.getElementById('inputs');
+  host.innerHTML = '';
+  for (const g of FIELDS) {
+    const fs = document.createElement('fieldset');
+    fs.innerHTML = '<legend>' + g.group + '</legend>';
+    for (const [key, label, min, max, step, pre, unit, hint] of g.items) {
+      const row = document.createElement('div');
+      row.className = 'row';
+      if (unit === 'bool') {
+        row.innerHTML = '<label class="check"><input type="checkbox" id="k-' + key + '"' + (S[key] ? ' checked' : '') + '>' + label + '</label>' + (hint ? '<small>' + hint + '</small>' : '');
+        fs.appendChild(row);
+        const cb = row.querySelector('input');
+        cb.addEventListener('change', () => { S[key] = cb.checked ? 1 : 0; update(); });
+        continue;
+      }
+      row.innerHTML = '<div class="lab"><label for="n-' + key + '">' + label + '</label><span class="field">' + (pre ? '<span>' + pre + '</span>' : '') +
+        '<input type="number" inputmode="decimal" id="n-' + key + '" step="' + step + '" min="0" value="' + S[key] + '"><span>' + unit + '</span></span></div>' +
+        '<input type="range" id="k-' + key + '" min="' + min + '" max="' + max + '" step="' + step + '" value="' + S[key] + '" aria-label="' + label + '">' +
+        (hint ? '<small>' + hint + '</small>' : '');
+      fs.appendChild(row);
+      const num = row.querySelector('input[type=number]'), rng = row.querySelector('input[type=range]');
+      num.addEventListener('input', () => {
+        const v = parseFloat(num.value);
+        if (!isFinite(v) || v < 0) return;
+        S[key] = key === 'hold' || key === 'tenure' ? Math.max(1, Math.round(v)) : v;
+        rng.value = Math.min(max, Math.max(min, S[key]));
+        update();
+      });
+      num.addEventListener('blur', () => { num.value = S[key]; });
+      rng.addEventListener('input', () => { S[key] = +rng.value; num.value = S[key]; update(); });
+    }
+    host.appendChild(fs);
+  }
+  const bar = document.createElement('div');
+  bar.className = 'btns';
+  bar.innerHTML = '<button type="button" class="btn" id="copy">Copy link to this scenario</button><button type="button" class="btn" id="reset">Reset</button>';
+  host.appendChild(bar);
+  document.getElementById('reset').addEventListener('click', () => { S = Object.assign({}, DEFAULTS); buildInputs(); update(); });
+  document.getElementById('copy').addEventListener('click', e => {
+    const b = e.currentTarget;
+    const done = () => { b.textContent = 'Link copied'; setTimeout(() => { b.textContent = 'Copy link to this scenario'; }, 1600); };
+    if (navigator.clipboard) navigator.clipboard.writeText(location.href).then(done, () => prompt('Copy this link', location.href));
+    else prompt('Copy this link', location.href);
+  });
+}
+
+// ── results ──
+const $ = id => document.getElementById(id);
+function cls(v) { return v >= 0 ? 'pos' : 'neg'; }
+
+function render() {
+  const R = calc(S), y1 = R.years[0], H = R.H;
+  $('r-gross').textContent = pct(R.gross, 2);
+  $('r-net').textContent = pct(R.net, 2);
+  $('r-net-s').textContent = 'After costs · ' + pct(R.netTax, 2) + ' after tax';
+  const cf = y1.cfLoan / 12;
+  $('r-cf').innerHTML = '<span class="' + cls(cf) + '">' + signed(cf, v => '₹' + inr(v)) + '</span>';
+  $('r-cf-s').textContent = R.L > 0 ? (cf >= 0 ? 'Rent covers the EMI of ₹' + inr(R.emi) : 'You top up; EMI is ₹' + inr(R.emi)) : 'No loan';
+  $('r-pay').textContent = yrs(R.payback);
+  $('r-irr-k').textContent = 'Return per year over ' + H + (H === 1 ? ' year' : ' years');
+  $('r-irr').textContent = pct(R.irrA);
+  $('r-irrl').textContent = R.L > 0 ? pct(R.irrL) : pct(R.irrA);
+  $('r-irrl-s').textContent = R.L > 0 ? 'With the loan, on ' + money(R.U) + ' of your cash' : 'No loan, same as all cash';
+  $('r-ber').textContent = R.L > 0 ? (R.ber === null ? '—' : '₹' + inr(Math.ceil(R.ber / 100) * 100) + '/mo') : '—';
+  $('r-ber-s').textContent = R.L > 0 ? 'Rent at which you pay nothing from your pocket in year one' : 'No loan';
+
+  const gap = R.prop[H] - R.fund[H], beat = (R.irrL === null ? 0 : R.irrL) - R.fundNet;
+  $('r-verdict').innerHTML = (gap >= 0 ? '<b class="pos">Beats the fund.</b> ' : '<b class="neg">Trails the fund.</b> ') +
+    'Sold after ' + H + (H === 1 ? ' year' : ' years') + ', you’d have ' + money(R.prop[H]) + ' against ' + money(R.fund[H]) +
+    ' from investing the same cash at ' + S.ret + '% (' + pct(R.fundNet) + ' a year after tax), ' + (gap >= 0 ? 'ahead by ' : 'behind by ') + money(Math.abs(gap)) + '. ' +
+    (R.ahead === null ? 'It doesn’t catch up within the holding period.' : R.ahead === 0 ? 'It stays ahead the whole time.' : 'It pulls ahead from year ' + R.ahead + '.');
+
+  $('t-cost').innerHTML = [
+    ['Price', R.P], ['Stamp duty and registration', R.stamp], ['Interiors and furnishing', R.F], ['Other one-off costs', R.O]
+  ].map(([k, v]) => '<tr><td>' + k + '</td><td>' + money(v) + '</td></tr>').join('') +
+    '<tr class="sub"><td>Total</td><td>' + money(R.cost) + '</td></tr>' +
+    '<tr><td>Home loan</td><td>' + money(R.L) + '</td></tr>' +
+    '<tr class="total"><td>Your own cash</td><td>' + money(R.U) + '</td></tr>';
+
+  const full = S.rent * 12, empty = full - y1.rentIn, agent = S.rent * S.agent;
+  const rows = [
+    ['Rent for 12 months', full, full], ['Empty months', -empty, -empty], ['Agent fees', -agent, -agent],
+    ['Maintenance, property tax, repairs', -(y1.costs - agent), -(y1.costs - agent)],
+  ];
+  $('t-year1').innerHTML = rows.map(([k, a, b]) => '<tr><td>' + k + '</td><td>' + money(a) + '</td><td>' + money(b) + '</td></tr>').join('') +
+    '<tr class="sub"><td>Net rent</td><td>' + money(y1.netOp) + '</td><td>' + money(y1.netOp) + '</td></tr>' +
+    '<tr><td>Income tax on rent</td><td>' + money(-y1.taxCash) + '</td><td>' + money(-y1.taxLoan) + '</td></tr>' +
+    '<tr><td>EMI</td><td>–</td><td>' + money(-y1.emi) + '</td></tr>' +
+    '<tr class="total"><td>Left for you</td><td class="' + cls(y1.cfCash) + '">' + money(y1.cfCash) + '</td><td class="' + cls(y1.cfLoan) + '">' + money(y1.cfLoan) + '</td></tr>';
+
+  drawChart(R);
+  sensitivity(R);
+
+  $('years').innerHTML = R.years.slice(0, H).map((y, t) =>
+    '<tr><td>' + (t + 1) + '</td><td>' + money(y.rentIn) + '</td><td>' + money(y.costs) + '</td><td>' + money(y.taxLoan) + '</td><td>' + money(y.emi) +
+    '</td><td class="' + cls(y.cfLoan) + '">' + money(y.cfLoan) + '</td><td>' + pct(y.netOp / R.cost, 2) + '</td><td>' + money(y.bal) + '</td></tr>').join('');
+
+  $('m-gross').textContent = pct(R.gross);
+  $('m-net').textContent = pct(R.net);
+  $('m-cf').textContent = signed(cf, v => '₹' + (v >= 1000 ? (v / 1000).toFixed(1) + 'k' : inr(v)));
+  $('m-irr').textContent = pct(R.L > 0 ? R.irrL : R.irrA);
+}
+
+function sensitivity(R) {
+  const list = [0, 2, 4, 5, 6, 8, 10];
+  if (!list.includes(S.app)) list.push(S.app);
+  list.sort((a, b) => a - b);
+  $('s-gap-h').textContent = 'Ahead of the fund at year ' + R.H;
+  $('sens').innerHTML = list.map(app => {
+    const r = calc(Object.assign({}, S, { app })), gap = r.prop[r.H] - r.fund[r.H];
+    return '<tr class="' + (app === S.app ? 'cur' : '') + '"><td>' + app + '% a year' + (app === S.app ? ' · current' : '') + '</td><td>' + pct(r.irrA) + '</td><td>' + pct(r.L > 0 ? r.irrL : r.irrA) +
+      '</td><td class="' + cls(gap) + '">' + signed(gap, money) + '</td></tr>';
+  }).join('');
+}
+
+function drawChart(R) {
+  const svg = $('chart'), W = 720, Hh = 320, Lm = 70, Rm = 18, T = 16, B = 40, H = R.H;
+  const all = R.prop.concat(R.fund).map(v => v / LAKH);
+  let lo = Math.min(0, ...all), hi = Math.max(0, ...all);
+  const raw = (hi - lo || 1) / 5, mag = Math.pow(10, Math.floor(Math.log10(raw)));
+  const step = [1, 2, 2.5, 5, 10].map(k => k * mag).find(k => k >= raw);
+  lo = Math.floor(lo / step) * step; hi = Math.ceil(hi / step) * step;
+  const x = t => Lm + (W - Lm - Rm) * t / H, y = v => T + (Hh - T - B) * (hi - v) / (hi - lo);
+  const font = 'font-size="11" fill="var(--muted)" font-family="IBM Plex Mono, monospace"';
+  let s = '';
+  for (let v = lo; v <= hi + 1e-9; v += step) {
+    const yy = y(v).toFixed(1), a = Math.abs(v), lab = a >= 100 ? +(a / 100).toFixed(2) + ' Cr' : +a.toFixed(1) + ' L';
+    s += '<line x1="' + Lm + '" x2="' + (W - Rm) + '" y1="' + yy + '" y2="' + yy + '" stroke="var(--line)"/>';
+    s += '<text x="' + (Lm - 8) + '" y="' + (+yy + 4) + '" text-anchor="end" ' + font + '>' + (v < -1e-9 ? '−' : '') + '₹' + lab + '</text>';
+  }
+  const xs = H <= 10 ? 1 : H <= 20 ? 2 : 5;
+  for (let t = 0; t <= H; t += xs) s += '<text x="' + x(t).toFixed(1) + '" y="' + (Hh - B + 18) + '" text-anchor="middle" ' + font + '>' + (t === 0 ? 'today' : 'yr ' + t) + '</text>';
+  s += '<line x1="' + Lm + '" x2="' + (W - Rm) + '" y1="' + y(0).toFixed(1) + '" y2="' + y(0).toFixed(1) + '" stroke="var(--ink)" stroke-width="1"/>';
+  for (const [arr, col] of [[R.fund, 'var(--alt)'], [R.prop, 'var(--accent)']]) {
+    s += '<polyline points="' + arr.map((v, t) => x(t).toFixed(1) + ',' + y(v / LAKH).toFixed(1)).join(' ') + '" fill="none" stroke="' + col + '" stroke-width="2.5" stroke-linejoin="round"/>';
+    s += '<circle cx="' + x(H).toFixed(1) + '" cy="' + y(arr[H] / LAKH).toFixed(1) + '" r="4" fill="' + col + '"/>';
+  }
+  if (R.ahead) s += '<circle cx="' + x(R.ahead).toFixed(1) + '" cy="' + y(R.prop[R.ahead] / LAKH).toFixed(1) + '" r="5" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>';
+  svg.innerHTML = s;
+}
+
+let queued = false;
+function update() { if (queued) return; queued = true; requestAnimationFrame(() => { queued = false; render(); writeHash(); }); }
+
+buildInputs();
+render();
+</script>
+</body>
+</html>
